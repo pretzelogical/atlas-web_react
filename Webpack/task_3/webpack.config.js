@@ -53,7 +53,18 @@ module.exports = {
     compress: true,
     port: 8564
   },
+  devtool: 'inline-nosources-cheap-source-map',
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30_000,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all'
+        }
+      }
+    },
     minimizer: [
       new TerserPlugin(),
       new ImageMinimizerPlugin({
