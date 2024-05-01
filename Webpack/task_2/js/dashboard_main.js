@@ -4,6 +4,7 @@ import '../css/main.css';
 
 
 $('body').append(`
+<div id="logo" width="200" height="200"></div>
 <p>Holberton Dashboard</p>
 <p>Dashboard data for the students</p>
 <button>Click here to get started</button>
