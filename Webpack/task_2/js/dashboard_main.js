@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { debounce } from 'lodash';
+import '../css/main.css';
 
 
 $('body').append(`
