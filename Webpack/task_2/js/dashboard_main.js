@@ -1,7 +1,17 @@
-import $ from 'jquery';
-import { debounce } from 'lodash';
 import '../css/main.css';
 
+
+async function get_modules() {
+  const [$, debounce] = await Promise.all([
+    import('jquery'),
+    import('lodash/debounce')
+  ]);
+  // The default export is on the default property
+  return [$.default, debounce.default];
+}
+
+
+const [$, debounce] = await get_modules();
 
 $('body').append(`
 <div id="logo" width="200" height="200"></div>

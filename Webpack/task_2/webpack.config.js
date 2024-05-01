@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './js/dashboard_main.js',
@@ -37,6 +38,7 @@ module.exports = {
   },
   optimization: {
     minimizer: [
+      new TerserPlugin(),
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.imageminMinify,
@@ -50,6 +52,7 @@ module.exports = {
           },
         },
       })
-    ]
+    ],
+    minimize: true
   }
 };
