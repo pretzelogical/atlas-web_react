@@ -1,3 +1,4 @@
+const HtmlWebpackInjectAttributesPlugin = require('html-webpack-inject-attributes-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const path = require('path');
@@ -32,9 +33,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      chunksSortMode: 'manual',
-      chunks: ['header', 'body', 'footer']
-    })
+    }),
   ],
   devServer: {
     static: {
@@ -60,6 +59,5 @@ module.exports = {
         },
       })
     ],
-    minimize: true
   }
 };

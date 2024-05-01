@@ -11,7 +11,7 @@ async function get_modules() {
 
 const [$, debounce] = await get_modules();
 
-$('body').append(`
+$('main').append(`
 <p>Dashboard data for the students</p>
 <button>Click here to get started</button>
 <p id="count">0</p>
