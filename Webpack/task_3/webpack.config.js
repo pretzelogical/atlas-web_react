@@ -1,4 +1,4 @@
-const HtmlWebpackInjectAttributesPlugin = require('html-webpack-inject-attributes-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const path = require('path');
@@ -34,13 +34,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
+    new CleanWebpackPlugin()
   ],
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public')
     },
     compress: true,
-    port: 9000
+    port: 8564
   },
   optimization: {
     minimizer: [
