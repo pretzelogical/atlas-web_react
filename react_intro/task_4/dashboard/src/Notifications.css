@@ -1,0 +1,13 @@
+.notifications {
+  padding: 1rem;
+  border: 2px dashed black;
+  display: flex;
+}
+
+.notification-default {
+  color: blue;
+}
+
+.notification-urgent {
+  color: red;
+}
