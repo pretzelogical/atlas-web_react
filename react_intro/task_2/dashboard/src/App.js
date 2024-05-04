@@ -7,6 +7,9 @@ import { getFooterCopy } from './utils';
 function App() {
   return (
     <>
+      <div className="root-notifications">
+        <Notifications />
+      </div>
       <div className='App-header'>
         <img
         src={HolbertonLogo}
@@ -14,9 +17,6 @@ function App() {
         width={256}
         height={256}></img>
         <h1>School Dashboard</h1>
-        <div className="root-notifications">
-          <Notifications />
-        </div>
       </div>
       <div className="App-body">
         <p>Login to access the full dashboard</p>

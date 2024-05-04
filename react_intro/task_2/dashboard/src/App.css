@@ -34,6 +34,5 @@ body {
 }
 
 .root-notifications {
-  margin-left: auto;
-  margin-right: 2rem;
+  padding: 0.5rem;
 }
