@@ -2,6 +2,7 @@ import './App.css';
 import Notifications from '../Notifications/Notifications.js';
 import HolbertonLogo from '../assets/holberton_logo.jpg';
 import { getFooterCopy } from '../utils/utils.js';
+import React from 'react';
 
 
 function App() {

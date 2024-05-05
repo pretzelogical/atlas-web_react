@@ -1,5 +1,6 @@
 import './Notifications.css'
 import { getLatestNotification } from '../utils/utils.js';
+import React from 'react';
 
 
 export default function Notifications () {

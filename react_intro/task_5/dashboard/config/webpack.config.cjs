@@ -30,6 +30,8 @@ module.exports = {
     path: path.resolve('./', 'dist')
   },
   plugins: [
-    new HTMLWebpackPlugin()
+    new HTMLWebpackPlugin({
+      template: 'src/index.html',
+    })
   ]
 };
