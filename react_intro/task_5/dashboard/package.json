@@ -18,12 +18,13 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --config config/webpack.config.cjs",
-    "test": "jest --verbose --config=./config/setupTests.js",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose --config=./config/jest.config.cjs",
     "dev": "webpack serve --mode development --config ./config/webpack.config.cjs",
     "build": "webpack build --mode production --config ./config/webpack.config.cjs"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  }
+  },
+  "type": "module"
 }
