@@ -17,6 +17,10 @@ module.exports = {
             loader: 'file-loader'
           }
         ]
+      },
+      {
+        test: /\.(?:js|mjs|cjs)$/,
+        use: { loader: 'babel-loader' }
       }
     ]
   },
