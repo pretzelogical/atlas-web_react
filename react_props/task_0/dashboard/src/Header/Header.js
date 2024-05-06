@@ -4,14 +4,14 @@ import './Header.css';
 
 export default function Header() {
   return (
-    <div className="App-header">
-      <img
-        src={HolbertonLogo}
-        alt="Holberton Logo"
-        width={256}
-        height={256}
-      ></img>
-      <h1>School Dashboard</h1>
-    </div>
+      <header>
+        <img
+          src={HolbertonLogo}
+          alt="Holberton Logo"
+          width={256}
+          height={256}
+        ></img>
+        <h1>School Dashboard</h1>
+      </header>
   );
 }

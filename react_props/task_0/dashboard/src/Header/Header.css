@@ -1,9 +1,9 @@
-.App-header {
+header {
   border-bottom: 3px solid #dd283f;
   display: flex;
   align-items: center;
 }
 
-.App-header h1 {
+header h1 {
   color: #dd283f;
 }

@@ -9,14 +9,18 @@ import Login from '../Login/Login.js';
 function App() {
   return (
     <>
-      <div className="root-notifications">
+      <div className="App-notifications">
         <Notifications />
       </div>
-      <Header />
+      <div className="App-header">
+        <Header />
+      </div>
       <div className="App-body">
         <Login />
       </div>
-      <Footer />
+      <div className="App-footer">
+        <Footer />
+      </div>
     </>
   );
 }
