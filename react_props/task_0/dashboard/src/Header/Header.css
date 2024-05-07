@@ -1,9 +1,0 @@
-header {
-  border-bottom: 3px solid #dd283f;
-  display: flex;
-  align-items: center;
-}
-
-header h1 {
-  color: #dd283f;
-}

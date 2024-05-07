@@ -12,5 +12,4 @@ function Root () {
   )
 }
 
-
 ReactDOM.render(<Root />, root);
