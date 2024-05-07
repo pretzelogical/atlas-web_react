@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App.js";
-import { shallow } from "enzyme";
+import { shallow } from "../../config/setupTests.mjs";
 
 
 test('App renders', () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import Notifications from "./Notifications";
-import { shallow } from "enzyme";
+import { shallow } from "../../config/setupTests.mjs";
 
 
 test('Notification renders', () => {
