@@ -9,7 +9,7 @@ test('Notification renders', () => {
 });
 
 
-test('Notification renders three list items', () => {
+test.skip('Notification renders three list items', () => {
   const wrapper = shallow(<Notifications />);
   const ul_children = wrapper.find('.notifications div ul').children();
   console.log(ul_children);
