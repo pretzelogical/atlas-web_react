@@ -13,25 +13,12 @@ body {
   height: 100vh;
 }
 
-.App-header {
-  border-bottom: 3px solid #dd283f;
-  display: flex;
-  align-items: center;
-}
-
-.App-header h1 {
-  color: #dd283f;
-}
-
 .App-body {
   margin: 4rem;
   margin-bottom: auto;
 }
 
-.App-footer {
-  border-top: 3px solid #dd283f;
-  text-align: center;
-}
+
 
 .root-notifications {
   padding: 0.5rem;
