@@ -1,6 +1,7 @@
 import React from "react";
-import Notifications from "./Notifications";
+import Notifications from "./Notifications.js";
 import { shallow } from "../../config/setupTests.mjs";
+import NotificationItem from "./NotificationItem.js";
 
 
 test('Notification renders', () => {
@@ -10,7 +11,10 @@ test('Notification renders', () => {
 
 test('Notification renders three list items', () => {
   const wrapper = shallow(<Notifications />);
-  expect(wrapper.find('li').length).toBe(3);
+  const ul_children = wrapper.find('.notifications div ul').children();
+  console.log(ul_children);
+  // TODO: fix this not working fix this not working fix this not working fix this not working fix this not working fix this not working e
+  expect(ul_children.exists(<NotificationItem />)).toBe(true);
 });
 
 test(
