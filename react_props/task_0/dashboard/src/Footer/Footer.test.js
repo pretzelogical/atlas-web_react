@@ -1,0 +1,1 @@
+test('blank test', () => void(0));
