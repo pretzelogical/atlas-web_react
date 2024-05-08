@@ -12,10 +12,10 @@ function App({ isLoggedin = false }) {
   return (
     <>
       <div className="root-notifications">
-        <Notifications />
       </div>
       <div className='App-header'>
         <Header />
+        <Notifications />
       </div>
       <div className="App-body">
           <main>

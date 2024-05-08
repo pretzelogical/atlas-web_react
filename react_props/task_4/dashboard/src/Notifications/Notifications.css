@@ -1,7 +1,19 @@
+.notifications-display {
+  display: flex;
+  flex-flow: column;
+  justify-content: end;
+  align-items: end;
+  margin-left: auto;
+  margin-right: 2rem;
+  margin-bottom: auto;
+}
+
 .notifications {
   padding: 1rem;
   border: 2px dashed black;
-  display: flex;
+  width: min(30vw, 400px);
+  align-self: flex-end;
+  flex-flow: column;
 }
 
 .notification-default {
@@ -10,4 +22,9 @@
 
 .notification-urgent {
   color: red;
+}
+
+.menuItem {
+  /* text-align: right; */
+  display: inline;
 }
