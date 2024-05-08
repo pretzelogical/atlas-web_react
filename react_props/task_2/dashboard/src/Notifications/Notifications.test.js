@@ -8,7 +8,7 @@ test('Notification renders', () => {
 });
 
 
-test.skip('Notification renders three list items', () => {
+test('Notification renders three list items', () => {
   const wrapper = shallow(<Notifications />);
   expect(wrapper.exists('NotificationItem')).toBe(true);
 });
