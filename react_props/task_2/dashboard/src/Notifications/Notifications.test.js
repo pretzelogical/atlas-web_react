@@ -1,7 +1,6 @@
 import React from "react";
 import Notifications from "./Notifications.js";
 import { shallow } from "../../config/setupTests.mjs";
-import NotificationItem from "./NotificationItem.js";
 
 
 test('Notification renders', () => {
