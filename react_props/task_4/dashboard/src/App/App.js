@@ -31,6 +31,6 @@ function App({ isLoggedin = false }) {
 
 App.propTypes = {
   isLoggedin: PropTypes.bool
-}
+};
 
 export default App;

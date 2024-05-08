@@ -19,7 +19,7 @@ export default function Notifications() {
           />
           <NotificationItem
             type="urgent"
-            html={getLatestNotification()}
+            html={{ __html: getLatestNotification() }}
           />
         </ul>
       </div>

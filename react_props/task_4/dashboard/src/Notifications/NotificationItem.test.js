@@ -11,10 +11,10 @@ test('NotificationItem renders', () => {
 test('NotificationItem renders the right html', () => {
   const wrapper = shallow(
   <NotificationItem
-    html={'<p>Test<p>'}
+    html={{ __html: '<p>Test</p>' }}
     type='basic'
   />);
   expect(wrapper.html()).toBe(
-    '<li data-priority="basic" class="notification-basic"><p>Test<p></li>'
+    '<li data-priority="basic" class="notification-basic"><p>Test</p></li>'
   );
 });
