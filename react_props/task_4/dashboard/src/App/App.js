@@ -1,14 +1,14 @@
 import './App.css';
 import Notifications from '../Notifications/Notifications.js';
-import HolbertonLogo from '../assets/holberton_logo.jpg';
-import { getFooterCopy } from '../utils/utils.js';
 import React from 'react';
 import Footer from '../Footer/Footer.js';
 import Header from '../Header/Header.js';
 import Login from '../Login/Login.js';
+import PropTypes from 'prop-types';
+import CourseList from '../CourseList/CourseList.js';
 
 
-function App() {
+function App({ isLoggedin = false }) {
   return (
     <>
       <div className="root-notifications">
@@ -19,7 +19,7 @@ function App() {
       </div>
       <div className="App-body">
           <main>
-            <Login />
+            {isLoggedin ? <CourseList /> : <Login />}
           </main>
       </div>
       <div className="App-footer">
@@ -27,6 +27,10 @@ function App() {
       </div>
     </>
   );
+}
+
+App.propTypes = {
+  isLoggedin: PropTypes.bool
 }
 
 export default App;
