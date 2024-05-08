@@ -11,7 +11,10 @@ test('Notification renders', () => {
 
 test.skip('Notification renders three list items', () => {
   const wrapper = shallow(<Notifications />);
-  expect(wrapper.exists('NotificationItem')).toBe(true);
+  const ul_children = wrapper.find('.notifications div ul').children();
+  console.log(ul_children);
+  // TODO: fix this not working fix this not working fix this not working fix this not working fix this not working fix this not working e
+  expect(ul_children.exists(<NotificationItem />)).toBe(true);
 });
 
 test(
