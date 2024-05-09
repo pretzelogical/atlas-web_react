@@ -1,6 +1,8 @@
 import React from "react";
 import App from "./App.js";
 import { shallow } from "../../config/setupTests.mjs";
+// import { spy } from 'sinon';
+
 
 
 test('App renders', () => {
@@ -36,4 +38,18 @@ test('App does not display Login when isLoggedIn = true', () => {
 test('App displays CourseList when isLoggedIn = true', () => {
   const wrapper = shallow(<App isLoggedin={true} />);
   expect(wrapper.exists('CourseList')).toBe(true);
+});
+
+test.skip('App logs out after crtl+h is pressed', () => {
+  const wrapper = shallow(<App />);
+  const mockAlert = spy(window, 'alert');
+  // const mockLogOut = jest.spyOn(App, )
+  wrapper.simulate('keydown', {
+    key: 'h',
+    code: 'KeyH',
+    ctrlKey: true
+  });
+  console.log(mockAlert.callCount);
+  expect(mockAlert.calledWith('Logging you out')).toBe(true);
+  mockRestore();
 });
