@@ -1,8 +1,11 @@
 import React from "react";
 import App from "./App.js";
-import { shallow } from "../../config/setupTests.mjs";
-// import { spy } from 'sinon';
+import { shallow, jest } from "../../config/setupTests.mjs";
+import { render, fireEvent } from '@testing-library/react';
+import { spy } from 'sinon';
 
+
+jest.spyOn(window, 'alert').mockImplementation(() => {});
 
 
 test('App renders', () => {
@@ -40,16 +43,12 @@ test('App displays CourseList when isLoggedIn = true', () => {
   expect(wrapper.exists('CourseList')).toBe(true);
 });
 
-test.skip('App logs out after crtl+h is pressed', () => {
-  const wrapper = shallow(<App />);
-  const mockAlert = spy(window, 'alert');
-  // const mockLogOut = jest.spyOn(App, )
-  wrapper.simulate('keydown', {
-    key: 'h',
-    code: 'KeyH',
-    ctrlKey: true
-  });
-  console.log(mockAlert.callCount);
-  expect(mockAlert.calledWith('Logging you out')).toBe(true);
-  mockRestore();
+test('App logs out after crtl+h is pressed', () => {
+  const logOutMock = jest.fn();
+  const { container } = render(<App isLoggedIn={true} logOut={logOutMock}/>);
+
+  fireEvent.keyDown(container, { key: 'h', ctrlKey: true });
+
+  expect(window.alert).toHaveBeenCalledWith('Logging you out');
+  expect(logOutMock).toHaveBeenCalled();
 });
