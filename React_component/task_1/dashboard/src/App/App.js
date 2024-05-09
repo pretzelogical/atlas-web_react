@@ -59,6 +59,10 @@ class App extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', document);
+  }
+
   render() {
     return (
       <>
