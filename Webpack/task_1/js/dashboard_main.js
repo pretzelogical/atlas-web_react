@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { debounce } from 'lodash';
+import _ from 'lodash';
 
 
 $('body').append(`
@@ -18,4 +18,4 @@ const updateCounter = (() => {
   }
 })();
 
-$('button').on('click', debounce(updateCounter, 500));
+$('button').on('click', _.debounce(updateCounter, 500));
