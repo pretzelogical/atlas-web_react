@@ -17,7 +17,7 @@ body {
   border-bottom: 3px solid #dd283f;
   display: flex;
   align-items: center;
-  padding-bottom: 4px;
+  padding-bottom: 16px;
 }
 
 .App-body {

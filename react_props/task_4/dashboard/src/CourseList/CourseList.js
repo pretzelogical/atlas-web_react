@@ -5,7 +5,7 @@ import './CourseList.css';
 
 export default function CourseList() {
   return (
-    <table>
+    <table className="courselist">
       <thead>
         <CourseListRow
           isHeader={true}

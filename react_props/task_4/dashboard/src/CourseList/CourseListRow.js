@@ -9,7 +9,11 @@ export default function CourseListRow({
     if (!textSecondCell) {
       return (
         <tr>
-          <th colSpan="2">{textFirstCell}</th>
+          <th
+            colSpan="2"
+            style={{ textAlign: 'center'}}>
+              {textFirstCell}
+          </th>
         </tr>
       );
     }

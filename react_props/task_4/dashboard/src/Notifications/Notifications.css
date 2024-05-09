@@ -10,10 +10,16 @@
 
 .notifications {
   padding: 1rem;
+  padding-bottom: 0.3rem;
   border: 2px dashed black;
   width: min(30vw, 400px);
   align-self: flex-end;
   flex-flow: column;
+  display: flex;
+}
+
+.notifications ul {
+  margin-top: 0;
 }
 
 .notification-default {
