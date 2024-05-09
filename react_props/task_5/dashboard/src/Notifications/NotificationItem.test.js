@@ -4,7 +4,10 @@ import { shallow } from "../../config/setupTests.mjs";
 
 
 test('NotificationItem renders', () => {
-  const wrapper = shallow(<NotificationItem />);
+  const wrapper = shallow(<NotificationItem
+    value={'test'}
+    type={'basic'}
+  />);
   expect(wrapper.exists()).toBe(true);
 });
 
