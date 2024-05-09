@@ -25,12 +25,30 @@ function App({ isLoggedin = false }) {
       credit: 40,
     },
   ];
+
+  const listNotifications = [
+    {
+      id: 1,
+      type: 'default',
+      value: 'Default Notification'
+    },
+    {
+      id: 2,
+      type: 'urgent',
+      value: 'Urgent Notification'
+    },
+    {
+      id: 3,
+      type: 'urgent',
+      html: { __html: '<b>Html</b> notification' }
+    }
+  ];
   return (
     <>
       <div className="root-notifications"></div>
       <div className="App-header">
         <Header />
-        <Notifications />
+        <Notifications listNotifications={listNotifications}/>
       </div>
       <div className="App-body">
         <main>

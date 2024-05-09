@@ -1,10 +1,10 @@
 import './Notifications.css';
-import { getLatestNotification } from '../utils/utils.js';
 import NotificationItem from './NotificationItem.js';
 import React from 'react';
 import PropTypes from 'prop-types';
+import NotificationItemShape from './NotificationItemShape.js';
 
-function Notifications({ displayDrawer = false }) {
+function Notifications({ displayDrawer = false, listNotifications = [] }) {
   return (
     <div className="notifications-display">
       <div className="menuItem">
@@ -13,7 +13,6 @@ function Notifications({ displayDrawer = false }) {
       {displayDrawer ? (
         <div
           className="notifications"
-          // style={{ display: displayDrawer ? 'default' : 'none' }}
         >
           <button
             style={{
@@ -32,51 +31,38 @@ function Notifications({ displayDrawer = false }) {
           </button>
           <p>Here is the list of notifications</p>
           <ul>
-            <NotificationItem type="default" value="New course available" />
-            <NotificationItem type="urgent" value="New resume available" />
-            <NotificationItem
-              type="urgent"
-              html={{ __html: getLatestNotification() }}
-            />
+            {listNotifications.length === 0 ? (
+              <li>No new notification for now</li>
+            ) : (
+              listNotifications.map((notif) => {
+                if (!notif.value) {
+                  return (
+                    <NotificationItem
+                      type={notif.type}
+                      html={notif.html}
+                      key={notif.id}
+                    />
+                  )
+                }
+                return (
+                  <NotificationItem
+                    type={notif.type}
+                    value={notif.value}
+                    key={notif.id}
+                  />
+                )
+              })
+            )}
           </ul>
         </div>
       ) : null}
-      {/* <div
-        className="notifications"
-        style={{ display: displayDrawer ? 'default' : 'none' }}
-      >
-        <button
-          style={{
-            background: 'none',
-            border: 'none',
-            fontSize: '25px',
-            alignSelf: 'end',
-            textAlign: 'right',
-            cursor: 'pointer',
-          }}
-          aria-label="close"
-          onClick={() => console.log('Close button has been clicked')}
-        >
-          x
-        </button>
-        <div>
-          <p>Here is the list of notifications</p>
-          <ul>
-            <NotificationItem type="default" value="New course available" />
-            <NotificationItem type="urgent" value="New resume available" />
-            <NotificationItem
-              type="urgent"
-              html={{ __html: getLatestNotification() }}
-            />
-          </ul>
-        </div>
-      </div> */}
     </div>
   );
 }
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(PropTypes.shape(NotificationItemShape))
 };
 
 export default Notifications;
