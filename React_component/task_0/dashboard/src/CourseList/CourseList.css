@@ -1,0 +1,10 @@
+.courselist {
+  width: 90vw;
+  border: 1px solid hsl(0, 0%, 78%);
+}
+
+.courselist thead tr th {
+  border-bottom: 1px solid hsl(0, 0%, 78%);
+  border-bottom-style: solid;
+  text-align: left;
+}
