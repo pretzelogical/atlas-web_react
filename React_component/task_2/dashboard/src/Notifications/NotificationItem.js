@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-function NotificationItem({type = 'default', value, html}) {
+function NotificationItem({type = 'default', value, html, markAsRead = () => void(0) }) {
   if (!html) {
     return <li
     className={`notification-${type}`}
     data-priority={type}
+    onClick={() => markAsRead()}
     >{value}</li>
   } else {
     return <li
     data-priority={type}
     className={`notification-${type}`}
+    onClick={() => markAsRead()}
     dangerouslySetInnerHTML={html}></li>
   }
 }
@@ -21,7 +23,8 @@ NotificationItem.propTypes = {
     __html: PropTypes.string
   }),
   type: PropTypes.string.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  markAsRead: PropTypes.func
 };
 
 export default NotificationItem;
