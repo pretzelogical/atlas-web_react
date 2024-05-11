@@ -96,7 +96,7 @@ test('Console.log function is called when a notification is clicked', () => {
 
 test('Check that when simulating a click on the component the spy is called with the right ID argument', () => {
   render(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
-  const mockConsoleLog = jest.spyOn(console, 'log');
+  const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => void(0));
   const li_elems = screen.getAllByRole('listitem');
 
   li_elems.forEach((li) => {
