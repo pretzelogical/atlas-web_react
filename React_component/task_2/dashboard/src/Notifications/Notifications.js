@@ -7,8 +7,13 @@ import NotificationItemShape from './NotificationItemShape.js';
 
 class Notifications extends React.Component {
   static defaultProps = {
-    displayDrawer: true,
+    displayDrawer: false,
     listNotifications: []
+  }
+
+  constructor(props) {
+    super(props);
+    this.markAsRead = this.markAsRead.bind(this);
   }
 
   markAsRead(id) {
