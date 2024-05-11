@@ -13,7 +13,7 @@ function BodySection({ title, children }) {
 
 BodySection.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.any
 };
 
 export default BodySection;
