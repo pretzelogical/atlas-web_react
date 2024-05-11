@@ -6,6 +6,8 @@ import Header from '../Header/Header.js';
 import Login from '../Login/Login.js';
 import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList.js';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.js';
+import BodySection from '../BodySection/BodySection.js';
 
 const listCourses = [
   {
@@ -72,7 +74,13 @@ class App extends React.Component {
         </div>
         <div className="App-body">
           <main>
-            {this.props.isLoggedin ? <CourseList listCourses={listCourses} /> : <Login />}
+            <BodySectionWithMarginBottom>
+              {this.props.isLoggedin ? <CourseList listCourses={listCourses} /> : <Login />}
+            </BodySectionWithMarginBottom>
+            <BodySection>
+              <h2>News from the School</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo provident possimus numquam autem.</p>
+            </BodySection>
           </main>
         </div>
         <div className="App-footer">
