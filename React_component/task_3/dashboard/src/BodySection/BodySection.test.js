@@ -1,6 +1,6 @@
 import React from 'react';
-import BodySection from './BodySection';
-import { render, fireEvent, screen } from '@testing-library/react';
+import BodySection from './BodySection.js';
+import { render, screen } from '@testing-library/react';
 
 
 test('Component should correctly render the children and one h2 element', () => {
