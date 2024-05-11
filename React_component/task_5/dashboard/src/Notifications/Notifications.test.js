@@ -110,3 +110,35 @@ test('Check that when simulating a click on the component the spy is called with
   ]);
   mockConsoleLog.mockRestore();
 });
+
+test('Does not rerender when updating with the same notification list', () => {
+  const { rerender } = render(
+    <Notifications displayDrawer listNotifications={listNotifications} />
+  );
+  const li_count = screen.getAllByRole('listitem').length;
+
+  rerender(
+    <Notifications displayDrawer listNotifications={listNotifications} />
+  );
+
+  expect(screen.getAllByRole('listitem').length).toBe(li_count);
+});
+
+test('Does rerender when updating with a longer notification list', () => {
+  const { rerender } = render(
+    <Notifications displayDrawer listNotifications={listNotifications} />
+  );
+  const li_count = screen.getAllByRole('listitem').length;
+  const newListNotifications = Array.from(listNotifications);
+  newListNotifications.push({
+    id: 4,
+    type: 'default',
+    value: 'new notification'
+  });
+
+  rerender(
+    <Notifications displayDrawer listNotifications={newListNotifications} />
+  );
+
+  expect(screen.getAllByRole('listitem').length).toBe(li_count + 1);
+});
