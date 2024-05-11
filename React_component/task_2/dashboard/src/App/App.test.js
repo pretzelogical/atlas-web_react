@@ -2,7 +2,6 @@ import React from "react";
 import App from "./App.js";
 import { shallow, jest } from "../../config/setupTests.mjs";
 import { render, fireEvent } from '@testing-library/react';
-import { spy } from 'sinon';
 
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});

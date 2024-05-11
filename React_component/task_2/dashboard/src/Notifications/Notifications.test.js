@@ -1,6 +1,8 @@
 import React from 'react';
 import Notifications from './Notifications.js';
 import { shallow } from '../../config/setupTests.mjs';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { jest } from '../../config/setupTests.mjs';
 
 const listNotifications = [
   {
@@ -77,4 +79,34 @@ test('Notifications renders correct empty text', () => {
   const wrapper = shallow(<Notifications displayDrawer={true} />);
   expect(wrapper.find('li').length).toBe(1);
   expect(wrapper.find('li').text()).toBe('No new notification for now');
+});
+
+test('Console.log function is called when a notification is clicked', () => {
+  render(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+  const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => void(0));
+  const li_elems = screen.getAllByRole('listitem');
+
+  li_elems.forEach((li) => {
+    fireEvent.click(li);
+  });
+
+  expect(mockConsoleLog).toHaveBeenCalledTimes(3);
+  mockConsoleLog.mockRestore();
+});
+
+test('Check that when simulating a click on the component the spy is called with the right ID argument', () => {
+  render(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+  const mockConsoleLog = jest.spyOn(console, 'log');
+  const li_elems = screen.getAllByRole('listitem');
+
+  li_elems.forEach((li) => {
+    fireEvent.click(li);
+  });
+
+  expect(mockConsoleLog.mock.calls).toEqual([
+    ['Notification 1 has been marked as read'],
+    ['Notification 2 has been marked as read'],
+    ['Notification 3 has been marked as read']
+  ]);
+  mockConsoleLog.mockRestore();
 });

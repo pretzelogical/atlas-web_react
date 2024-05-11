@@ -7,13 +7,13 @@ function NotificationItem({type = 'default', value, html, markAsRead = () => voi
     return <li
     className={`notification-${type}`}
     data-priority={type}
-    onClick={() => markAsRead()}
+    onClick={markAsRead}
     >{value}</li>
   } else {
     return <li
     data-priority={type}
     className={`notification-${type}`}
-    onClick={() => markAsRead()}
+    onClick={markAsRead}
     dangerouslySetInnerHTML={html}></li>
   }
 }
