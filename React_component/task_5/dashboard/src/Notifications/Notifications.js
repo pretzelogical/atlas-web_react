@@ -7,7 +7,7 @@ import NotificationItemShape from './NotificationItemShape.js';
 
 class Notifications extends React.Component {
   static defaultProps = {
-    displayDrawer: false,
+    displayDrawer: true,
     listNotifications: []
   }
 
