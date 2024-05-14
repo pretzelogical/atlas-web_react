@@ -3,6 +3,37 @@ import NotificationItem from './NotificationItem.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape.js';
+import { StyleSheet, css } from 'aphrodite';
+
+const notificationsStyles = StyleSheet.create({
+  notificationsDisplay: {
+    display: 'flex',
+    flexFlow: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginLeft: 'auto',
+    marginRight: '2rem',
+    marginBottom: 'auto'
+  },
+
+  notifications: {
+    display: 'flex',
+    flexFlow: 'column',
+    padding: '1rem',
+    paddingBottom: '0.3rem',
+    border: '2px dashed black',
+    width: 'min(30vw, 400px)',
+    alignSelf: 'flex-end'
+  },
+
+  notifcationsUl: {
+    marginTop: 0
+  },
+
+  menuItem: {
+    display: 'inline'
+  }
+});
 
 
 class Notifications extends React.Component {
@@ -28,12 +59,12 @@ class Notifications extends React.Component {
 
   render() {
     return (
-      <div className="notifications-display">
-        <div className="menuItem">
+      <div className={css(notificationsStyles.notificationsDisplay)}>
+        <div className={css(notificationsStyles.menuItem)}>
           <p>Your notifications</p>
         </div>
         {this.props.displayDrawer ? (
-          <div className="notifications">
+          <div className={css(notificationsStyles.notifications)}>
             <button
               style={{
                 background: 'none',
@@ -50,7 +81,7 @@ class Notifications extends React.Component {
               x
             </button>
             <p>Here is the list of notifications</p>
-            <ul>
+            <ul className={css(notificationsStyles.notifcationsUl)}>
               {this.props.listNotifications.length === 0 ? (
                 <li>No new notification for now</li>
               ) : (

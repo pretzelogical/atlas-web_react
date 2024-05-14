@@ -3,6 +3,16 @@ import Notifications from './Notifications.js';
 import { shallow } from '../../config/setupTests.mjs';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { jest } from '../../config/setupTests.mjs';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
+
 
 const listNotifications = [
   {
@@ -37,15 +47,15 @@ test('Notification renders three list items', () => {
 });
 
 test('Notification paragraph contains "Here is the list of notifications"', () => {
-  const wrapper = shallow(<Notifications displayDrawer={true} />);
-  expect(wrapper.find('.notifications p').text()).toBe(
+  const wrapper = shallow(<Notifications displayDrawer />);
+  expect(wrapper.find('p').at(1).text()).toBe(
     'Here is the list of notifications',
   );
 });
 
-test('Notification menu item is being displayed when displayDrawer is false', () => {
+test('Notification title para is being displayed when displayDrawer is false', () => {
   const wrapper = shallow(<Notifications displayDrawer={false} />);
-  expect(wrapper.exists('.menuItem')).toBe(true);
+  expect(wrapper.find('p').text()).toBe('Your notifications');
 });
 
 test('check div.notifications is not being displayed when displayDrawer is false', () => {

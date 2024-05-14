@@ -1,6 +1,6 @@
 import React from "react";
 
-
+// No styling for this component :P
 
 export default function Login() {
   return (
