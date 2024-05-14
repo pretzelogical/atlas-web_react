@@ -1,7 +1,15 @@
 import React from 'react';
 import { shallow } from '../../config/setupTests.mjs';
 import CourseList from './CourseList.js';
+import { StyleSheetTestUtils } from "aphrodite";
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const listCourses = [
   {

@@ -63,7 +63,7 @@ const appStyle = StyleSheet.create({
 
 class App extends React.Component {
   static defaultProps = {
-    isLoggedin: false,
+    isLoggedIn: false,
     logOut: () => void(0)
   }
 
@@ -91,7 +91,7 @@ class App extends React.Component {
         <div className={css(appStyle.appBody)}>
           <main>
             <BodySectionWithMarginBottom>
-              {this.props.isLoggedin ? <CourseList listCourses={listCourses} /> : <Login />}
+              {this.props.isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
             </BodySectionWithMarginBottom>
             <BodySection>
               <h2>News from the School</h2>
@@ -108,7 +108,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  isLoggedin: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func
 };
 

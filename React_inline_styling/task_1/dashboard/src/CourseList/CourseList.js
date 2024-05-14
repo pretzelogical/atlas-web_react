@@ -1,12 +1,20 @@
 import React from 'react';
 import CourseListRow from './CourseListRow.js';
-import './CourseList.css';
+// import './CourseList.css';
 import PropTypes from 'prop-types';
 import CourseShape from './CourseShape.js';
+import { StyleSheet, css } from 'aphrodite';
+
+const courseListStyles = StyleSheet.create({
+  courseList: {
+    width: '90vw',
+    border: '1px solid hsl(0, 0%, 78%)'
+  },
+});
 
 function CourseList({ listCourses = [] }) {
   return (
-    <table className="courselist">
+    <table className={css(courseListStyles.courseList)}>
       {listCourses.length === 0 ? (
         <thead>
           <CourseListRow

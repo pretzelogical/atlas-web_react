@@ -4,7 +4,6 @@ import { shallow, jest } from "../../config/setupTests.mjs";
 import { render, fireEvent } from '@testing-library/react';
 import { StyleSheetTestUtils } from "aphrodite";
 
-
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
 });
@@ -12,7 +11,6 @@ beforeEach(() => {
 afterEach(() => {
   StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
-
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});
 
@@ -38,17 +36,17 @@ test('App renders a div with class App-footer', () => {
 });
 
 test('App does not display courselist when isLoggedIn = false', () => {
-  const wrapper = shallow(<App />);
+  const wrapper = shallow(<App isLoggedIn={false} />);
   expect(wrapper.exists('CourseList')).toBe(false);
 });
 
 test('App does not display Login when isLoggedIn = true', () => {
-  const wrapper = shallow(<App isLoggedin={true} />);
+  const wrapper = shallow(<App isLoggedIn={true} />);
   expect(wrapper.exists('Login')).toBe(false);
 });
 
 test('App displays CourseList when isLoggedIn = true', () => {
-  const wrapper = shallow(<App isLoggedin={true} />);
+  const wrapper = shallow(<App isLoggedIn={true} />);
   expect(wrapper.exists('CourseList')).toBe(true);
 });
 

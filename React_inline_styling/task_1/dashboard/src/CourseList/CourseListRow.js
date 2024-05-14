@@ -1,7 +1,13 @@
 import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
 const rowStyle = { backgroundColor: '#f5f5f5ab' };
-const headerStyle = { backgroundColor: '#deb5b545' };
+const headerStyle = {
+  backgroundColor: '#deb5b545',
+  borderBottom: '1px solid hsl(0, 0%, 78%)',
+  borderBottomStyle: 'solid',
+  textAlign: 'left'
+};
 const spanHeaderStyle = { ...headerStyle, textAlign: 'center' };
 
 export default function CourseListRow({
