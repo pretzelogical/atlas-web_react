@@ -3,7 +3,9 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+  },
   module: {
     rules: [
       {
@@ -24,15 +26,21 @@ module.exports = {
       }
     ]
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve('./', 'dist')
+    path: path.resolve('./', 'dist'),
+    clean: true
   },
   plugins: [
     new HTMLWebpackPlugin({
       template: 'src/index.html',
       favicon: './src/assets/favicon.ico'
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
 };
