@@ -1,7 +1,15 @@
 import React from "react";
 import CourseListRow from "./CourseListRow.js";
 import { shallow } from "../../config/setupTests.mjs";
+import { StyleSheetTestUtils } from "aphrodite";
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 test(
   'CourseListRow correctly renders one cell when isHeader = true',

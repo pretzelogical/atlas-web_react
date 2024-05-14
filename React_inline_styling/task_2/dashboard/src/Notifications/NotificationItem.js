@@ -18,34 +18,30 @@ class NotificationItem extends React.PureComponent {
   };
 
   render() {
-    if (!this.props.html) {
-      return (
+    return (
+      this.props.html ? (
         <li
-          className={
-            this.props.type === 'urgent'
-              ? css(notificationItemStyles['notification-urgent'])
-              : css(notificationItemStyles['notification-default'])
-          }
-          data-priority={this.props.type}
-          onClick={this.props.markAsRead}
-        >
-          {this.props.value}
-        </li>
-      );
-    } else {
-      return (
-        <li
-          data-priority={this.props.type}
-          className={
-            this.props.type === 'urgent'
-              ? css(notificationItemStyles['notification-urgent'])
-              : css(notificationItemStyles['notification-default'])
-          }
-          onClick={this.props.markAsRead}
-          dangerouslySetInnerHTML={this.props.html}
+        className={
+          this.props.type === 'urgent'
+            ? css(notificationItemStyles['notification-urgent'])
+            : css(notificationItemStyles['notification-default'])
+        }
+        data-priority={this.props.type}
+        onClick={this.props.markAsRead}
+        dangerouslySetInnerHTML={this.props.html}
         ></li>
-      );
-    }
+      ) : (
+        <li
+        className={
+          this.props.type === 'urgent'
+            ? css(notificationItemStyles['notification-urgent'])
+            : css(notificationItemStyles['notification-default'])
+        }
+        data-priority={this.props.type}
+        onClick={this.props.markAsRead}
+        >{this.props.value}</li>
+      )
+    )
   }
 }
 
