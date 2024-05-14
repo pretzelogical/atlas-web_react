@@ -13,7 +13,6 @@ afterEach(() => {
   StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-
 const listNotifications = [
   {
     id: 1,

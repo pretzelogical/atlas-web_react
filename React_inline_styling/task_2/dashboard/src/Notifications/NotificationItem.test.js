@@ -3,7 +3,15 @@ import NotificationItem from "./NotificationItem.js";
 import { shallow } from "../../config/setupTests.mjs";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { jest } from "../../config/setupTests.mjs";
+import { StyleSheetTestUtils } from "aphrodite";
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 test('NotificationItem renders', () => {
   const wrapper = shallow(<NotificationItem
@@ -13,15 +21,16 @@ test('NotificationItem renders', () => {
   expect(wrapper.exists()).toBe(true);
 });
 
-test('NotificationItem renders the right html', () => {
-  const wrapper = shallow(
-  <NotificationItem
-    html={{ __html: '<p>Test</p>' }}
-    type='basic'
-  />);
-  expect(wrapper.html()).toBe(
-    '<li data-priority="basic" class="notification-basic"><p>Test</p></li>'
+test('NotificationItem renders the right html', async () => {
+  render(
+    <NotificationItem
+      html={{ __html: '<p role="paragraph">Test</p>' }}
+      type='basic'
+    />
   );
+  const p = await screen.findByRole('paragraph');
+
+  expect(p.outerHTML).toBe('<p role="paragraph">Test</p>');
 });
 
 
