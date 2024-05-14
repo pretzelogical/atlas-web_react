@@ -11,7 +11,7 @@ export default function CourseListRow({
         <tr>
           <th
             colSpan="2"
-            style={{ textAlign: 'center'}}>
+            style={{ textAlign: 'center' }}>
               {textFirstCell}
           </th>
         </tr>

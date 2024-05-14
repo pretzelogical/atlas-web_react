@@ -47,7 +47,7 @@ const listNotifications = [
 
 class App extends React.Component {
   static defaultProps = {
-    isLoggedIn: false,
+    isLoggedin: false,
     logOut: () => void(0)
   }
 
