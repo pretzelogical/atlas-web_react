@@ -56,9 +56,6 @@ const appStyle = StyleSheet.create({
     margin: '4rem',
     marginBottom: 'auto'
   },
-  rootNotifications: {
-    padding: '0.5rem'
-  }
 });
 
 class App extends React.Component {
@@ -83,7 +80,6 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <div className={css(appStyle.rootNotifications)}></div>
         <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications listNotifications={listNotifications} />

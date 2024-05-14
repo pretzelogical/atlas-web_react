@@ -3,6 +3,19 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 const notificationItemStyles = StyleSheet.create({
+  notification: {
+    listStyleType: 'none',
+    fontSize: '20px',
+    padding: '10px 8px',
+    borderBottom: '1px solid black',
+    '@media (min-width: 900px)': {
+      listStyleType: 'disc',
+      fontSize: 'normal',
+      borderBottom: 'none',
+      fontSize: 'initial',
+      padding: '0'
+    },
+  },
   'notification-default': {
     color: 'blue',
   },
@@ -18,30 +31,42 @@ class NotificationItem extends React.PureComponent {
   };
 
   render() {
-    return (
-      this.props.html ? (
-        <li
+    return this.props.html ? (
+      <li
         className={
           this.props.type === 'urgent'
-            ? css(notificationItemStyles['notification-urgent'])
-            : css(notificationItemStyles['notification-default'])
+            ? css(
+                notificationItemStyles.notification,
+                notificationItemStyles['notification-urgent'],
+              )
+            : css(
+                notificationItemStyles.notification,
+                notificationItemStyles['notification-default'],
+              )
         }
         data-priority={this.props.type}
         onClick={this.props.markAsRead}
         dangerouslySetInnerHTML={this.props.html}
-        ></li>
-      ) : (
-        <li
+      ></li>
+    ) : (
+      <li
         className={
           this.props.type === 'urgent'
-            ? css(notificationItemStyles['notification-urgent'])
-            : css(notificationItemStyles['notification-default'])
+            ? css(
+                notificationItemStyles.notification,
+                notificationItemStyles['notification-urgent'],
+              )
+            : css(
+                notificationItemStyles.notification,
+                notificationItemStyles['notification-default'],
+              )
         }
         data-priority={this.props.type}
         onClick={this.props.markAsRead}
-        >{this.props.value}</li>
-      )
-    )
+      >
+        {this.props.value}
+      </li>
+    );
   }
 }
 

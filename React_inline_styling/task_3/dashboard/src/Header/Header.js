@@ -9,7 +9,7 @@ const headerStyles = StyleSheet.create({
   },
   h1: {
     color: '#dd283f'
-  }
+  },
 })
 
 export default function Header() {

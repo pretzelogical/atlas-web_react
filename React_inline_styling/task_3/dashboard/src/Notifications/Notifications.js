@@ -6,36 +6,60 @@ import { StyleSheet, css } from 'aphrodite';
 
 const notificationsStyles = StyleSheet.create({
   notificationsDisplay: {
-    display: 'flex',
-    right: '0',
-    top: '0',
+    // display: 'flex',
+    top: '4px',
     position: 'absolute',
     flexFlow: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginLeft: 'auto',
-    marginRight: '2rem',
-    marginBottom: 'auto'
+    width: '100%',
+    zIndex: '1000',
+    '@media (min-width: 900px)': {
+      marginRight: '2rem',
+      marginBottom: 'auto',
+      marginLeft: 'auto',
+      right: '20px',
+      top: '0'
+    }
   },
 
   notifications: {
     display: 'flex',
+    position: 'absolute',
     flexFlow: 'column',
-    padding: '1rem',
     paddingBottom: '0.3rem',
-    border: '2px dashed black',
-    width: 'min(30vw, 400px)',
-    alignSelf: 'flex-end',
-    backgroundColor: 'white'
+    width: '100vw',
+    height: 'calc(95vh + 32px)',
+    top: '0',
+    backgroundColor: 'white',
+    '@media (min-width: 900px)': {
+      border: '2px dashed black',
+      width: 'min(30vw, 400px)',
+      height: 'auto',
+      padding: '1rem',
+      right: '-20px',
+      top: '50px'
+    }
   },
 
-  notifcationsUl: {
-    marginTop: 0
+  notificationsUl: {
+    marginTop: 0,
+    paddingLeft: '0px',
+    '@media (min-width: 900px)': {
+      marginLeft: '20px'
+    }
   },
 
   menuItem: {
-    display: 'inline',
-    whiteSpace: 'nowrap'
+    position: 'absolute',
+    top: '-4px',
+    right: '30px',
+    whiteSpace: 'nowrap',
+    zIndex: '-1',
+    '@media (min-width: 900px)': {
+      top: '0px',
+      right: '-20px'
+    }
   }
 });
 
@@ -85,7 +109,7 @@ class Notifications extends React.Component {
               x
             </button>
             <p>Here is the list of notifications</p>
-            <ul className={css(notificationsStyles.notifcationsUl)}>
+            <ul className={css(notificationsStyles.notificationsUl)}>
               {this.props.listNotifications.length === 0 ? (
                 <li>No new notification for now</li>
               ) : (
