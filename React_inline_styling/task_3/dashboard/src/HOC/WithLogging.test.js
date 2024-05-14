@@ -3,15 +3,18 @@ import { render } from '@testing-library/react';
 import Login from '../Login/Login.js';
 import { jest } from '../../config/setupTests.mjs';
 import WithLogging from './WithLogging.js';
+import { StyleSheetTestUtils } from "aphrodite";
 
 let consoleLogMock;
 
 beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
   consoleLogMock = jest.spyOn(console, 'log')
     .mockImplementation(() => void(0));
 });
 
 afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   consoleLogMock.mockRestore();
 });
 
