@@ -4,9 +4,32 @@ import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape.js';
 import { StyleSheet, css } from 'aphrodite';
 
+const translateKeyFrames = {
+  '0%': {
+    transform: 'translateY(0)',
+  },
+  '50%': {
+    transform: 'translateY(-6px)',
+  },
+  '100%': {
+    transform: 'translateY(0)',
+  },
+};
+
+const opacityKeyFrames = {
+  '0%': {
+    opacity: '1',
+  },
+  '50%': {
+    opacity: '0.50',
+  },
+  '100%': {
+    opacity: '1',
+  },
+};
+
 const notificationsStyles = StyleSheet.create({
   notificationsDisplay: {
-    // display: 'flex',
     top: '4px',
     position: 'absolute',
     flexFlow: 'column',
@@ -19,8 +42,8 @@ const notificationsStyles = StyleSheet.create({
       marginBottom: 'auto',
       marginLeft: 'auto',
       right: '20px',
-      top: '0'
-    }
+      top: '0',
+    },
   },
 
   notifications: {
@@ -38,19 +61,25 @@ const notificationsStyles = StyleSheet.create({
       height: 'auto',
       padding: '1rem',
       right: '-20px',
-      top: '50px'
-    }
+      top: '20px',
+    },
   },
 
   notificationsUl: {
     marginTop: 0,
     paddingLeft: '0px',
     '@media (min-width: 900px)': {
-      marginLeft: '20px'
-    }
+      marginLeft: '20px',
+    },
   },
 
   menuItem: {
+    ':hover': {
+      animationName: [translateKeyFrames, opacityKeyFrames],
+      animationDuration: '0.5s, 1s',
+      animationIterationCount: '3',
+    },
+    cursor: 'pointer',
     position: 'absolute',
     top: '-4px',
     right: '30px',
@@ -58,17 +87,16 @@ const notificationsStyles = StyleSheet.create({
     zIndex: '-1',
     '@media (min-width: 900px)': {
       top: '0px',
-      right: '-20px'
-    }
-  }
+      right: '-20px',
+    },
+  },
 });
-
 
 class Notifications extends React.Component {
   static defaultProps = {
     displayDrawer: false,
-    listNotifications: []
-  }
+    listNotifications: [],
+  };
 
   constructor(props) {
     super(props);
@@ -88,9 +116,11 @@ class Notifications extends React.Component {
   render() {
     return (
       <div className={css(notificationsStyles.notificationsDisplay)}>
-        <div className={css(notificationsStyles.menuItem)}>
-          <p>Your notifications</p>
-        </div>
+        {this.props.displayDrawer ? null : (
+          <div className={css(notificationsStyles.menuItem)}>
+            <p>Your notifications</p>
+          </div>
+        )}
         {this.props.displayDrawer ? (
           <div className={css(notificationsStyles.notifications)}>
             <button

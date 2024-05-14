@@ -6,7 +6,6 @@ import { StyleSheet, css } from 'aphrodite';
 
 const notificationsStyles = StyleSheet.create({
   notificationsDisplay: {
-    // display: 'flex',
     top: '4px',
     position: 'absolute',
     flexFlow: 'column',
