@@ -2,6 +2,15 @@ import React from 'react';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom.js';
 import { render, screen } from '@testing-library/react';
 import { shallow } from '../../config/setupTests.mjs';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 
 test('Checks that the component correctly renders a BodySection component', () => {
