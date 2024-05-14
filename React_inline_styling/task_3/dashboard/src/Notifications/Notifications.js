@@ -7,6 +7,9 @@ import { StyleSheet, css } from 'aphrodite';
 const notificationsStyles = StyleSheet.create({
   notificationsDisplay: {
     display: 'flex',
+    right: '0',
+    top: '0',
+    position: 'absolute',
     flexFlow: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
@@ -22,7 +25,8 @@ const notificationsStyles = StyleSheet.create({
     paddingBottom: '0.3rem',
     border: '2px dashed black',
     width: 'min(30vw, 400px)',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    backgroundColor: 'white'
   },
 
   notifcationsUl: {
@@ -30,7 +34,8 @@ const notificationsStyles = StyleSheet.create({
   },
 
   menuItem: {
-    display: 'inline'
+    display: 'inline',
+    whiteSpace: 'nowrap'
   }
 });
 

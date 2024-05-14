@@ -1,6 +1,21 @@
-import React from "react";
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
-// No styling for this component :P
+const loginStyles = StyleSheet.create({
+  input: {
+    border: 'none',
+  },
+
+  button: {
+    border: '2px solid #f0bf77',
+    borderRadius: '4px',
+    backgroundColor: 'transparent',
+    padding: '4px 8px',
+    ':hover': {
+      backgroundColor: '#0000002f'
+    }
+  },
+});
 
 export default function Login() {
   return (
@@ -14,7 +29,12 @@ export default function Login() {
           >
             Email:
           </label>
-          <input type="email" name="email" id="email" />
+          <input
+            className={css(loginStyles.input)}
+            type="email"
+            name="email"
+            id="email"
+          />
         </div>
         <div>
           <label
@@ -23,10 +43,17 @@ export default function Login() {
           >
             Password:
           </label>
-          <input type="password" name="password" id="password" />
+          <input
+            className={css(loginStyles.input)}
+            type="password"
+            name="password"
+            id="password"
+          />
         </div>
         <div>
-          <button id="confirm">OK</button>
+          <button className={css(loginStyles.button)} id="confirm">
+            OK
+          </button>
         </div>
       </div>
     </>

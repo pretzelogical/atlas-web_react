@@ -50,7 +50,7 @@ const appStyle = StyleSheet.create({
     borderBottom: '3px solid #dd283f',
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: '16px'
+    paddingBottom: '16px',
   },
   appBody: {
     margin: '4rem',
