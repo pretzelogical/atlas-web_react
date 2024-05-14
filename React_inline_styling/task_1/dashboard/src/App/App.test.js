@@ -2,6 +2,16 @@ import React from "react";
 import App from "./App.js";
 import { shallow, jest } from "../../config/setupTests.mjs";
 import { render, fireEvent } from '@testing-library/react';
+import { StyleSheetTestUtils } from "aphrodite";
+
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});
@@ -12,14 +22,14 @@ test('App renders', () => {
 });
 
 
-test('App renders a div with class App-header', () => {
+test('App renders with component Header', () => {
   const wrapper = shallow(<App />);
-  expect(wrapper.find('.App-header').length).toBe(1);
+  expect(wrapper.find('Header').length).toBe(1);
 });
 
-test('App renders a div with class App-body', () => {
+test('App renders with component BodySection', () => {
   const wrapper = shallow(<App />);
-  expect(wrapper.find('.App-body').length).toBe(1);
+  expect(wrapper.find("BodySection").exists()).toBe(true);
 });
 
 test('App renders a div with class App-footer', () => {

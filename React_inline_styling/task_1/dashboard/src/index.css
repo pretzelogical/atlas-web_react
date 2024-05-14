@@ -12,19 +12,3 @@ body {
   width: 100vw;
   height: 100vh;
 }
-
-.App-header {
-  border-bottom: 3px solid #dd283f;
-  display: flex;
-  align-items: center;
-  padding-bottom: 16px;
-}
-
-.App-body {
-  margin: 4rem;
-  margin-bottom: auto;
-}
-
-.root-notifications {
-  padding: 0.5rem;
-}

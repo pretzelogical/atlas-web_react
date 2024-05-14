@@ -1,4 +1,3 @@
-import './App.css';
 import Notifications from '../Notifications/Notifications.js';
 import React from 'react';
 import Footer from '../Footer/Footer.js';
@@ -8,6 +7,7 @@ import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList.js';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.js';
 import BodySection from '../BodySection/BodySection.js';
+import { StyleSheet, css } from 'aphrodite';
 
 const listCourses = [
   {
@@ -45,6 +45,22 @@ const listNotifications = [
   },
 ];
 
+const appStyle = StyleSheet.create({
+  appHeader: {
+    borderBottom: '3px solid #dd283f',
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: '16px'
+  },
+  appBody: {
+    margin: '4rem',
+    marginBottom: 'auto'
+  },
+  rootNotifications: {
+    padding: '0.5rem'
+  }
+});
+
 class App extends React.Component {
   static defaultProps = {
     isLoggedin: false,
@@ -67,12 +83,12 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <div className="root-notifications"></div>
-        <div className="App-header">
+        <div className={css(appStyle.rootNotifications)}></div>
+        <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications listNotifications={listNotifications} />
         </div>
-        <div className="App-body">
+        <div className={css(appStyle.appBody)}>
           <main>
             <BodySectionWithMarginBottom>
               {this.props.isLoggedin ? <CourseList listCourses={listCourses} /> : <Login />}
