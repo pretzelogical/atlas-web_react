@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import PropTypes from 'prop-types';
 
 const loginStyles = StyleSheet.create({
   input: {
@@ -17,15 +18,14 @@ const loginStyles = StyleSheet.create({
   },
 });
 
-export default function Login() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function Login({ logIn = () => void(0) }) {
   const [enableSubmit, setEnableSubmit] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setIsLoggedIn(true);
+    logIn(email, password);
   };
   const handleChangeEmail = (newEmail) => setEmail(newEmail);
   const handleChangePassword = (newPassword) => setPassword(newPassword);
@@ -37,7 +37,7 @@ export default function Login() {
   return (
     <>
       <p>Login to access the full dashboard</p>
-      <form className="App-body-login" onSubmit={(e) => handleLoginSubmit(e)}>
+      <form className="App-body-login" >
         <div>
           <label
             htmlFor="email"
@@ -79,9 +79,16 @@ export default function Login() {
             id="confirm"
             value="OK"
             disabled={!enableSubmit}
+            onClick={(e) => handleLoginSubmit(e)}
           />
         </div>
       </form>
     </>
   );
 }
+
+Login.propTypes = {
+  logIn: PropTypes.func
+};
+
+export default Login;

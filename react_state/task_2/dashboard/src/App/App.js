@@ -3,8 +3,8 @@ import React from "react";
 import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import Login from "../Login/Login.js";
-import PropTypes from "prop-types";
 import CourseList from "../CourseList/CourseList.js";
+import AppContext from "./AppContext.js";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom.js";
 import BodySection from "../BodySection/BodySection.js";
 import { StyleSheet, css } from "aphrodite";
@@ -59,15 +59,17 @@ const appStyle = StyleSheet.create({
 });
 
 class App extends React.Component {
-  static defaultProps = {
-    isLoggedIn: false,
-    logOut: () => void 0,
-  };
 
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
+      user: {
+        email: '',
+        password: '',
+        isLoggedIn: false
+      },
+      logOut: () => void(0)
     };
   }
 
@@ -83,11 +85,31 @@ class App extends React.Component {
     });
   }
 
+  logIn = (email, password) => {
+    this.setState({
+      user: {
+        email,
+        password,
+        isLoggedIn: true
+      }
+    });
+  }
+
+  logOut = () => {
+    this.setState({
+      user: {
+        email: '',
+        password: '',
+        isLoggedIn: false
+      }
+    })
+  }
+
   componentDidMount() {
     document.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.key === "h") {
         alert("Logging you out");
-        this.props.logOut();
+        this.logOut();
       }
     });
   }
@@ -98,7 +120,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <AppContext.Provider value={{
+        user: this.state.user,
+        logOut: this.logOut
+      }} >
         <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications
@@ -113,10 +138,10 @@ class App extends React.Component {
           <main>
           <p>{this.state.displayDrawer}</p>
             <BodySectionWithMarginBottom>
-              {this.props.isLoggedIn ? (
+              {this.state.user.isLoggedIn ? (
                 <CourseList listCourses={listCourses} />
               ) : (
-                <Login />
+                <Login logIn={this.logIn} />
               )}
             </BodySectionWithMarginBottom>
             <BodySection>
@@ -131,14 +156,9 @@ class App extends React.Component {
         <div className="App-footer">
           <Footer />
         </div>
-      </>
+      </AppContext.Provider>
     );
   }
 }
-
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func,
-};
 
 export default App;
