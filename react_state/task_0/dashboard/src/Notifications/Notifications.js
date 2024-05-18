@@ -110,6 +110,9 @@ class Notifications extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    if (this.props.displayDrawer !== nextProps.displayDrawer) {
+      return true;
+    }
     return (
       nextProps.listNotifications.length > this.props.listNotifications.length
     );
@@ -138,7 +141,7 @@ class Notifications extends React.Component {
                 color: 'gray',
               }}
               aria-label="close"
-              onClick={this.props.handleHideDrawer}
+              onClick={() => this.props.handleHideDrawer()}
             >
               x
             </button>
@@ -179,6 +182,8 @@ class Notifications extends React.Component {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(PropTypes.shape(NotificationItemShape)),
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func
 };
 
 export default Notifications;

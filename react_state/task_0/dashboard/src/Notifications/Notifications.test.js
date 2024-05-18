@@ -47,7 +47,6 @@ test('Notification renders three list items', () => {
 
 test('Notification paragraph contains "Here is the list of notifications"', () => {
   const wrapper = shallow(<Notifications displayDrawer />);
-  console.log(wrapper.html());
   expect(wrapper.find('p').at(0).text()).toBe(
     'Here is the list of notifications',
   );
@@ -151,4 +150,28 @@ test('Does rerender when updating with a longer notification list', () => {
   );
 
   expect(screen.getAllByRole('listitem').length).toBe(li_count + 1);
+});
+
+test('Notifications calls handleDisplayDrawer when menu item is clicked', () => {
+  const mockHandleDisplayDrawer = jest.fn();
+  render(
+    <Notifications handleDisplayDrawer={mockHandleDisplayDrawer} />
+  );
+  const menuItem = screen.getByText('Your notifications');
+
+  fireEvent.click(menuItem);
+
+  expect(mockHandleDisplayDrawer).toHaveBeenCalled();
+});
+
+test('Notifications calls handleHideDrawer when close button is clicked', () => {
+  const mockHandleHideDrawer = jest.fn();
+  render(
+    <Notifications handleHideDrawer={mockHandleHideDrawer} displayDrawer />
+  );
+  const button = screen.getByText('x');
+
+  fireEvent.click(button);
+
+  expect(mockHandleHideDrawer).toHaveBeenCalled();
 });
