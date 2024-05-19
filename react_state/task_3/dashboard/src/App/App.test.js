@@ -14,7 +14,6 @@ afterEach(() => {
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});
 
-
 test('App renders', () => {
   shallow(<App />);
 });
@@ -112,4 +111,14 @@ test('App.logOut updates the state correctly', () => {
 
   instance.logOut();
   expect(wrapper.state('user').isLoggedIn).toBe(false);
+});
+
+test('App.markNotificationAsRead removes the intended notification', () => {
+  const wrapper = shallow(<App />);
+  const instance = wrapper.instance();
+  const firstListNotifications = wrapper.state('listNotifications');
+
+  instance.markNotificationAsRead(3);
+
+  expect(wrapper.state('listNotifications')).toStrictEqual(firstListNotifications.slice(0, 2));
 });
