@@ -1,23 +1,27 @@
-import React from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import React, { useState } from "react";
+import { StyleSheet, css } from "aphrodite";
 
 const courseListRowStyle = StyleSheet.create({
   row: {
-    backgroundColor: '#f5f5f5ab',
+    backgroundColor: "#f5f5f5ab",
   },
 
   header: {
-    backgroundColor: '#deb5b545',
-    borderBottom: '1px solid hsl(0, 0%, 78%)',
-    borderBottomStyle: 'solid',
-    textAlign: 'left',
+    backgroundColor: "#deb5b545",
+    borderBottom: "1px solid hsl(0, 0%, 78%)",
+    borderBottomStyle: "solid",
+    textAlign: "left",
   },
 
   spanHeader: {
-    backgroundColor: '#deb5b545',
-    borderBottom: '1px solid hsl(0, 0%, 78%)',
-    borderBottomStyle: 'solid',
-    textAlign: 'center',
+    backgroundColor: "#deb5b545",
+    borderBottom: "1px solid hsl(0, 0%, 78%)",
+    borderBottomStyle: "solid",
+    textAlign: "center",
+  },
+
+  rowChecked: {
+    backgroundColor: "#e6e4e4",
   },
 });
 
@@ -26,8 +30,16 @@ export default function CourseListRow({
   textFirstCell,
   textSecondCell = null,
 }) {
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
-    <tr className={css(courseListRowStyle.row)}>
+    <tr
+      className={
+        isChecked
+          ? css(courseListRowStyle.row, courseListRowStyle.rowChecked)
+          : css(courseListRowStyle.row)
+      }
+    >
       {isHeader ? (
         textSecondCell ? (
           <>
@@ -35,11 +47,21 @@ export default function CourseListRow({
             <th className={css(courseListRowStyle.header)}>{textSecondCell}</th>
           </>
         ) : (
-          <th className={css(courseListRowStyle.spanHeader)} colSpan="2">{textFirstCell}</th>
+          <th className={css(courseListRowStyle.spanHeader)} colSpan="2">
+            {textFirstCell}
+          </th>
         )
       ) : (
         <>
-          <td>{textFirstCell}</td>
+          <td>
+            <input
+              type="checkbox"
+              name={`${textFirstCell}-checkbox`}
+              id={`${textFirstCell}-checkbox`}
+              onClick={() => setIsChecked(!isChecked)}
+            />
+            {textFirstCell}
+          </td>
           <td>{textSecondCell}</td>
         </>
       )}
