@@ -92,30 +92,17 @@ const notificationsStyles = StyleSheet.create({
   },
 });
 
-class Notifications extends React.Component {
+class Notifications extends React.PureComponent {
   static defaultProps = {
     displayDrawer: false,
     listNotifications: [],
     handleDisplayDrawer: () => void(0),
-    handleHideDrawer: () => void(0)
+    handleHideDrawer: () => void(0),
+    markAsRead: () => void(0)
   };
 
   constructor(props) {
     super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (this.props.displayDrawer !== nextProps.displayDrawer) {
-      return true;
-    }
-    return (
-      nextProps.listNotifications.length > this.props.listNotifications.length
-    );
   }
 
   render() {
@@ -157,7 +144,7 @@ class Notifications extends React.Component {
                         type={notif.type}
                         html={notif.html}
                         key={notif.id}
-                        markAsRead={() => this.markAsRead(notif.id)}
+                        markAsRead={() => this.props.markAsRead(notif.id)}
                       />
                     );
                   }
@@ -166,7 +153,7 @@ class Notifications extends React.Component {
                       type={notif.type}
                       value={notif.value}
                       key={notif.id}
-                      markAsRead={() => this.markAsRead(notif.id)}
+                      markAsRead={() => this.props.markAsRead(notif.id)}
                     />
                   );
                 })
@@ -183,7 +170,8 @@ Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(PropTypes.shape(NotificationItemShape)),
   handleDisplayDrawer: PropTypes.func,
-  handleHideDrawer: PropTypes.func
+  handleHideDrawer: PropTypes.func,
+  markAsRead: PropTypes.func
 };
 
 export default Notifications;

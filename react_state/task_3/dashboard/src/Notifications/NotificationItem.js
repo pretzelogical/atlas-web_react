@@ -7,6 +7,7 @@ const notificationItemStyles = StyleSheet.create({
     listStyleType: 'none',
     fontSize: '20px',
     padding: '10px 8px',
+    cursor: 'pointer',
     borderBottom: '1px solid black',
     '@media (min-width: 900px)': {
       listStyleType: 'disc',

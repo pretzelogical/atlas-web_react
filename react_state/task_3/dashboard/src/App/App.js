@@ -138,8 +138,8 @@ class App extends React.Component {
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
-            markNotificationAsRead={this.markNotificationAsRead}
-            key={this.state.displayDrawer}
+            markAsRead={this.markNotificationAsRead}
+            key={this.state.listNotifications.length}
           />
         </div>
         <div className={css(appStyle.appBody)}>
