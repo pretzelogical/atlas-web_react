@@ -27,7 +27,7 @@ const listCourses = [
   },
 ];
 
-const listNotifications = [
+const defaultListNotifications = [
   {
     id: 1,
     type: "default",
@@ -63,13 +63,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDrawer: false,
       user: {
         email: '',
         password: '',
         isLoggedIn: false
       },
-      logOut: () => void(0)
+      logOut: () => void(0),
+      displayDrawer: false,
+      listNotifications: Array.from(defaultListNotifications)
     };
   }
 
@@ -105,6 +106,12 @@ class App extends React.Component {
     })
   }
 
+  markNotificationAsRead = (id) => {
+    this.setState({
+      listNotifications: this.state.listNotifications.filter((notif) => id !== notif.id)
+    });
+  }
+
   componentDidMount() {
     document.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.key === "h") {
@@ -127,10 +134,11 @@ class App extends React.Component {
         <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications
-            listNotifications={listNotifications}
+            listNotifications={this.state.listNotifications}
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
+            markNotificationAsRead={this.markNotificationAsRead}
             key={this.state.displayDrawer}
           />
         </div>
