@@ -23,7 +23,6 @@ test('Test that it retrieves the correct notification data', () => {
 
 
 test('JSON is correctly normalized', () => {
-  console.log(JSON.stringify(notifications, null, 2));
   expect(notifications.result).toEqual(
     expect.arrayContaining([
       "5debd76480edafc8af244228",

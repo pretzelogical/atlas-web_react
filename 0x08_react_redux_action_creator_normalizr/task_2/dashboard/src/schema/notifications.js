@@ -11,7 +11,7 @@ const notification = new schema.Entity('notifications', {
   author: user,
   context: message
 });
-
+const notifications = normalize(notificationsJSON, [notification]);
 
 /**
  * Returns a list containing all the context objects with matching
@@ -21,9 +21,15 @@ const notification = new schema.Entity('notifications', {
  * @returns {array}
  */
 export function getAllNotificationsByUser(userId) {
-  return notificationsJSON.filter((notifItem) => notifItem.author.id === userId)
-    .map((notifItem) => notifItem.context);
+  const newArr = [];
+  Object.entries(notifications.entities.notifications).forEach(([notifKey, notifVal]) => {
+    if (notifVal.author === userId) {
+      newArr.push(notifications.entities.messages[notifVal.context]);
+    }
+  });
+  return newArr;
+  // return notificationsJSON.filter((notifItem) => notifItem.author.id === userId)
+  //   .map((notifItem) => notifItem.context);
 }
 
-const notifications = normalize(notificationsJSON, [notification]);
 export default notifications;
