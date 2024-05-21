@@ -46,6 +46,7 @@
   "type": "module",
   "dependencies": {
     "aphrodite": "^2.4.0",
+    "normalizr": "^3.6.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   }
