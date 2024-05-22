@@ -1,4 +1,4 @@
-import notificationsJSON from '../../notifications.json';
+import notificationsJSON from '../dist/notifications.json';
 import { normalize, schema } from 'normalizr';
 
 const user = new schema.Entity('users');
