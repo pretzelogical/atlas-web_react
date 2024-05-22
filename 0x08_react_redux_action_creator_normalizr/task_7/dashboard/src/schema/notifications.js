@@ -28,8 +28,6 @@ export function getAllNotificationsByUser(userId) {
     }
   });
   return newArr;
-  // return notificationsJSON.filter((notifItem) => notifItem.author.id === userId)
-  //   .map((notifItem) => notifItem.context);
 }
 
 export default notifications;
