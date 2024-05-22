@@ -1,6 +1,6 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -10,21 +10,21 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif)/i,
         use: [
           {
-            loader: 'file-loader'
-          }
-        ]
+            loader: 'file-loader',
+          },
+        ],
       },
       {
         test: /\.(?:js|mjs|cjs)$/,
-        use: { loader: 'babel-loader' }
-      }
-    ]
+        use: { loader: 'babel-loader' },
+      },
+    ],
   },
   devtool: 'source-map',
   output: {
@@ -35,12 +35,17 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: 'src/index.html',
-      favicon: './src/assets/favicon.ico'
+      favicon: './src/assets/favicon.ico',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/dist', to: './static'}
+      ]
     })
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
-    }
-  }
+    },
+  },
 };
