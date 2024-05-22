@@ -36,10 +36,19 @@ export const loginFailure = () => ({
 });
 
 export const loginRequest = (email, password) => {
-  store.dispatch(login(email, password));
-  fetch('http://localhost:8080/static/login-success.json')
-    .then(() => store.dispatch(loginSuccess()))
-    .catch(() => store.dispatch(loginFailure()));
+  return async (dispatch) => {
+    try {
+      store.dispatch(login(email, password));
+      const res = await fetch('http://localhost:8080/static/login-success.json');
+      if (res.status === 200) {
+        store.dispatch(loginSuccess());
+      } else {
+        store.dispatch(loginFailure());
+      }
+    } catch (err) {
+      store.dispatch(loginFailure());
+    }
+  }
 };
 
 export const boundLogin = bindActionCreators(login, store.dispatch);
