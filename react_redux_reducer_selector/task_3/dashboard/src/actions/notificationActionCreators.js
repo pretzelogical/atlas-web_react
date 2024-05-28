@@ -12,5 +12,10 @@ export const setNotificationFilter = (filter) => ({
   filter
 });
 
+export const fetchNotificationsSuccess = (data) => ({
+  type: NotificationActionTypes.FETCH_NOTIFICATIONS_SUCCESS,
+  data
+});
+
 export const boundMarkAsRead = bindActionCreators(markAsRead, store.dispatch);
 export const boundSetNotificationsFilter = bindActionCreators(setNotificationFilter, store.dispatch);
