@@ -57,7 +57,7 @@ test('notificationReducer correctly marks a notification as read when using mark
 
 test('notificationReducer correctly sets the type filter', () => {
   const notifs = notificationReducer(
-    ImmutableMap({ ...initialState, notifications: initializedTestData }),
+    ImmutableMap({ ...initialState, notifications: initializedNormalizedTestData }),
     NOTIFICATION_ACTION_CREATORS.setNotificationFilter(
       NOTIFICATION_ACTION_TYPES.NotificationTypeFilters.URGENT,
     ),
