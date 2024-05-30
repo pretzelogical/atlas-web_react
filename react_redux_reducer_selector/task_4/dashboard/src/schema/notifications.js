@@ -30,4 +30,8 @@ export function getAllNotificationsByUser(userId) {
   return newArr;
 }
 
+export function notificationsNormalizer(data) {
+  return normalize(data, [notification]);
+}
+
 export default notifications;

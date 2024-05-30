@@ -25,7 +25,6 @@ export default function courseReducer(state = ImmutableMap(), action) {
         false,
       );
 
-
     default:
       return state;
   }
