@@ -1,6 +1,6 @@
 import courseReducer from './courseReducer.js';
 import * as COURSE_ACTION_CREATORS from '../actions/courseActionCreators.js';
-import { List as ImmutableList } from 'immutable';
+import { Map as ImmutableMap } from 'immutable';
 
 const sampleData = [
   {
@@ -41,45 +41,48 @@ const initalizedSampleData = [
   },
 ];
 
-test('courseReducer returns an empty ImmutableList as its default state when no action is passed', () => {
-  expect(courseReducer()).toEqual(ImmutableList());
+const initializedAndNormalizedSampleData = courseReducer(
+  ImmutableMap(),
+  COURSE_ACTION_CREATORS.fetchCourseSuccess(sampleData),
+);
+
+console.log(
+  JSON.stringify(
+    initializedAndNormalizedSampleData.toJS(),
+    null,
+    2,
+  ),
+);
+
+test('courseReducer returns an empty ImmutableMap as its default state when no action is passed', () => {
+  expect(courseReducer()).toEqual(ImmutableMap());
 });
 
 test('courseReducer returns the fetched courses when the fetchCourseSuccess action creator is used', () => {
-  expect(
-    courseReducer(
-      ImmutableList(),
-      COURSE_ACTION_CREATORS.fetchCourseSuccess(sampleData),
-    ).toJS(),
-  ).toEqual(initalizedSampleData);
+  const courses = courseReducer(
+    ImmutableMap(),
+    COURSE_ACTION_CREATORS.fetchCourseSuccess(sampleData),
+  ).toJS();
+
+  for (const res of courses.result) {
+    expect(courses.entities.courses[res]).toEqual(
+      initalizedSampleData[res - 1],
+    );
+  }
 });
 
 test('courseReducer returns a list of courses with the correct one selected when the selectCourse action creator is used', () => {
-  expect(
-    courseReducer(
-      ImmutableList(initalizedSampleData),
-      COURSE_ACTION_CREATORS.selectCourse(1),
-    ).toJS(),
-  ).toEqual(
-    initalizedSampleData.map((data) =>
-      data.id === 1 ? { ...data, isSelected: true } : data,
-    ),
+  const courses = courseReducer(
+    initializedAndNormalizedSampleData,
+    COURSE_ACTION_CREATORS.selectCourse(1),
   );
+  expect(courses.getIn(['entities', 'courses', '1', 'isSelected'])).toBe(true);
 });
 
 test('courseReducer returns a list of courses with the correct one unselected when the unselectCourse action creator is used', () => {
-  const selectedSampleData = initalizedSampleData.map((data) => ({
-    ...data,
-    isSelected: true,
-  }));
-  expect(
-    courseReducer(
-      ImmutableList(selectedSampleData),
-      COURSE_ACTION_CREATORS.unselectCourse(1),
-    ).toJS(),
-  ).toEqual(
-    selectedSampleData.map((data) =>
-      data.id === 1 ? { ...data, isSelected: false } : data,
-    ),
+  const courses = courseReducer(
+    initializedAndNormalizedSampleData,
+    COURSE_ACTION_CREATORS.unselectCourse(1),
   );
+  expect(courses.getIn(['entities', 'courses', '1', 'isSelected'])).toBe(false);
 });
