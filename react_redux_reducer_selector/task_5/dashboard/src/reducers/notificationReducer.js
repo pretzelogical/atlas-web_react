@@ -1,5 +1,5 @@
 import * as NOTIFICATION_ACTION_TYPES from '../actions/notificationActionTypes.js';
-import { Map as ImmutableMap } from 'immutable';
+import { Map as ImmutableMap, fromJS } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications.js';
 
 const initialState = ImmutableMap({
@@ -17,7 +17,7 @@ export default function notificationReducer(state = initialState, action) {
       for (const res of normalizedNotifs.result) {
         normalizedNotifs.entities.notifications[res].isRead = false;
       }
-      return state.set('data', normalizedNotifs);
+      return state.set('data', fromJS(normalizedNotifs));
     case NOTIFICATION_ACTION_TYPES.MARK_AS_READ:
       return state.setIn(
         ['data', 'entities', 'notifications', action.index, 'isRead'],

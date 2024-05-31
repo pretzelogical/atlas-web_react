@@ -51,7 +51,6 @@ test('notificationReducer correctly marks a notification as read when using mark
     ImmutableMap({ ...initialState, data: initializedNormalizedTestData }),
     NOTIFICATION_ACTION_CREATORS.markAsRead(1),
   ).toJS();
-  console.log(JSON.stringify(notifs, null, 2));
   expect(notifs.data.entities.notifications[1].isRead).toBe(true);
 });
 

@@ -54,15 +54,15 @@ test('getNotifications returns the notifications', () => {
     notifs
   );
   expect(notifsMap.constructor.name).toBe('Map');
-  expect(notifsMap.get('1').id).toBe(1);
+  expect(notifsMap.getIn(['1', 'id'])).toBe(1);
 });
 
 test('getUnreadNotifications returns the unread notifications', () => {
-  const markedReadNotifs = notifs.setIn(['data', 'entities', 'notifications', 2, 'isRead'], true);
+  const markedReadNotifs = notifs.setIn(['data', 'entities', 'notifications', '2', 'isRead'], true);
   const notifsMap = NotificationSelectors.getUnreadNotifications(
     markedReadNotifs
   );
   expect(notifsMap.constructor.name).toBe('Map');
-  expect(notifsMap.get('1').isRead).toBe(false);
+  expect(notifsMap.getIn(['1', 'isRead'])).toBe(false);
   expect(notifsMap.get('2')).toBe(undefined);
 });

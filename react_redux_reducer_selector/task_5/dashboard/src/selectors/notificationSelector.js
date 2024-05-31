@@ -1,19 +1,24 @@
-const objectToMap = (obj) => {
-  const newMap = new Map();
-  for (const [key, val] of Object.entries(obj)) {
-    newMap.set(key, val);
-  }
-  return newMap
-}
+import { Map as ImmutableMap, fromJS } from "immutable";
 
+
+/**
+ * Filters unread notifications
+ *
+ * @param {ImmutableMap} notifs
+ * @returns {ImmutableMap}
+ */
 const filterUnread = (notifs) => {
-  const unreadNotifs = {};
-  for (const [key, val] of Object.entries(notifs)) {
-    val.isRead ? null : unreadNotifs[key] = val
+  let unreadNotifs = ImmutableMap();
+  console.log(ImmutableMap.isMap(notifs));
+  console.log(notifs.toJS());
+  for (const [key, val] of notifs.entries()) {
+    if (!val.get('isRead')) {
+      unreadNotifs = unreadNotifs.set(key, val);
+    }
   }
   return unreadNotifs;
 }
 
 export const filterTypeSeleced = (state) => state.get('filter');
-export const getNotifications = (state) => objectToMap(state.getIn(['data', 'entities', 'notifications']));
-export const getUnreadNotifications = (state) => objectToMap(filterUnread(state.getIn(['data', 'entities', 'notifications'])));
+export const getNotifications = (state) => state.getIn(['data', 'entities', 'notifications']);
+export const getUnreadNotifications = (state) => filterUnread(state.getIn(['data', 'entities', 'notifications']));
