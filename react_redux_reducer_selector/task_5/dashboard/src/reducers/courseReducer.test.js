@@ -46,8 +46,6 @@ const initializedAndNormalizedSampleData = courseReducer(
   COURSE_ACTION_CREATORS.fetchCourseSuccess(sampleData),
 );
 
-console.log(JSON.stringify(initializedAndNormalizedSampleData.toJS(), null, 2));
-
 test('courseReducer returns an empty ImmutableMap as its default state when no action is passed', () => {
   expect(courseReducer()).toEqual(ImmutableMap());
 });
