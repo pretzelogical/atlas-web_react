@@ -2,6 +2,15 @@ import uiReducer from './uiReducer.js';
 import * as COURSE_ACTION_CREATORS from '../actions/courseActionCreators.js';
 import * as UI_ACTION_CREATORS from '../actions/uiActionCreators.js';
 import { Map as ImmutableMap } from 'immutable';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const initialState = ImmutableMap({
   isNotificationDrawerVisible: false,

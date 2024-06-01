@@ -1,5 +1,6 @@
 import Notifications from "../Notifications/Notifications.js";
 import React from "react";
+import { connect } from "react-redux";
 import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import Login from "../Login/Login.js";
@@ -169,4 +170,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export const mapStateToProps = (state) => ({
+  isLoggedIn: state.isUserLoggedIn
+});
+
+export default connect(mapStateToProps)(App);

@@ -10,6 +10,8 @@ const shallow = Enzyme.shallow;
 const mount = Enzyme.mount;
 const unmount = Enzyme.unmount;
 
+document.body.innerHTML = '<div id="root"></div>';
+
 const configureStore = ReduxMockStore.default;
 
 export { shallow, mount, unmount, jest, configureStore, fetchMock };

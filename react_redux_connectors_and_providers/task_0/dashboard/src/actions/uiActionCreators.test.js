@@ -2,6 +2,15 @@ import * as UiActionCreators from './uiActionCreators.js';
 import * as UiActionTypes from './uiActionTypes.js';
 import { thunk } from 'redux-thunk';
 import { configureStore, fetchMock } from '../../config/setupTests.mjs';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const mockStore = configureStore([thunk]);
 

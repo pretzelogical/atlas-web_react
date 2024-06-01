@@ -1,6 +1,15 @@
 import courseReducer from './courseReducer.js';
 import * as COURSE_ACTION_CREATORS from '../actions/courseActionCreators.js';
 import { Map as ImmutableMap } from 'immutable';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const sampleData = [
   {
