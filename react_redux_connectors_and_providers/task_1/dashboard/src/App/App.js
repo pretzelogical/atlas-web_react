@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
+import PropTypes from "prop-types";
 import Login from "../Login/Login.js";
 import { Map as ImmutableMap } from "immutable";
 import CourseList from "../CourseList/CourseList.js";
@@ -61,13 +62,17 @@ const appStyle = StyleSheet.create({
 });
 
 class App extends React.Component {
+  static defaultProps = {
+    isLoggedIn: false,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       user: {
         email: "",
         password: "",
-        isLoggedIn: false,
+        isLoggedIn: props.user.isLoggedIn
       },
       logOut: () => void 0,
       displayDrawer: false,
@@ -173,6 +178,13 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  user: PropTypes.shape({
+    isLoggedIn: PropTypes.bool,
+  }),
+};
+
 /**
  * Maps the state to props
  * @param {ImmutableMap} state
