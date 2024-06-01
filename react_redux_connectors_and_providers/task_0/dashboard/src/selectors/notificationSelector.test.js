@@ -4,6 +4,15 @@ import * as NOTIFICATION_ACTION_CREATORS from '../actions/notificationActionCrea
 import { notificationsNormalizer } from '../schema/notifications.js';
 import { Map as ImmutableMap } from 'immutable';
 import * as NotificationSelectors from './notificationSelector.js';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 
 const initialState = ImmutableMap({

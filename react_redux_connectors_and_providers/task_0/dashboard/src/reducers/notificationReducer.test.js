@@ -3,6 +3,15 @@ import * as NOTIFICATION_ACTION_TYPES from '../actions/notificationActionTypes.j
 import * as NOTIFICATION_ACTION_CREATORS from '../actions/notificationActionCreators.js';
 import { Map as ImmutableMap } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications.js';
+import { StyleSheetTestUtils } from "aphrodite";
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 const initialState = ImmutableMap({
   data: [],

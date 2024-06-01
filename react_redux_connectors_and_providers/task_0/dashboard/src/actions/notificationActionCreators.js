@@ -1,15 +1,6 @@
 import * as NotificationActionTypes from "./notificationActionTypes.js";
 import { bindActionCreators } from "redux";
 import { store } from "../index.js";
-import { StyleSheetTestUtils } from "aphrodite";
-
-beforeEach(() => {
-  StyleSheetTestUtils.suppressStyleInjection();
-});
-
-afterEach(() => {
-  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
 
 export const markAsRead = (index) => ({
   type: NotificationActionTypes.MARK_AS_READ,

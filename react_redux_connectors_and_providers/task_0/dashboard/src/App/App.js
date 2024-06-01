@@ -60,18 +60,17 @@ const appStyle = StyleSheet.create({
 });
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       user: {
-        email: '',
-        password: '',
-        isLoggedIn: false
+        email: "",
+        password: "",
+        isLoggedIn: false,
       },
-      logOut: () => void(0),
+      logOut: () => void 0,
       displayDrawer: false,
-      listNotifications: Array.from(defaultListNotifications)
+      listNotifications: Array.from(defaultListNotifications),
     };
   }
 
@@ -79,39 +78,41 @@ class App extends React.Component {
     this.setState({
       displayDrawer: true,
     });
-  }
+  };
 
   handleHideDrawer = () => {
     this.setState({
       displayDrawer: false,
     });
-  }
+  };
 
   logIn = (email, password) => {
     this.setState({
       user: {
         email,
         password,
-        isLoggedIn: true
-      }
+        isLoggedIn: true,
+      },
     });
-  }
+  };
 
   logOut = () => {
     this.setState({
       user: {
-        email: '',
-        password: '',
-        isLoggedIn: false
-      }
-    })
-  }
+        email: "",
+        password: "",
+        isLoggedIn: false,
+      },
+    });
+  };
 
   markNotificationAsRead = (id) => {
     this.setState({
-      listNotifications: this.state.listNotifications.filter((notif) => id !== notif.id)
+      listNotifications: this.state.listNotifications.filter(
+        (notif) => id !== notif.id
+      ),
     });
-  }
+  };
 
   componentDidMount() {
     document.addEventListener("keydown", (e) => {
@@ -128,10 +129,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppContext.Provider value={{
-        user: this.state.user,
-        logOut: this.logOut
-      }} >
+      <AppContext.Provider
+        value={{
+          user: this.state.user,
+          logOut: this.logOut,
+        }}
+      >
         <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications
@@ -145,7 +148,7 @@ class App extends React.Component {
         </div>
         <div className={css(appStyle.appBody)}>
           <main>
-          <p>{this.state.displayDrawer}</p>
+            <p>{this.state.displayDrawer}</p>
             <BodySectionWithMarginBottom>
               {this.state.user.isLoggedIn ? (
                 <CourseList listCourses={listCourses} />
@@ -171,7 +174,7 @@ class App extends React.Component {
 }
 
 export const mapStateToProps = (state) => ({
-  isLoggedIn: state.isUserLoggedIn
+  user: { ...state.user, isLoggedIn: state.isUserLoggedIn },
 });
 
 export default connect(mapStateToProps)(App);
