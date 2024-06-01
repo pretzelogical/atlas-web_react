@@ -11,8 +11,11 @@ import { renderWithProviders } from "../utils/test_utils.js";
 
 const initialAppState = fromJS({
   isNotificationDrawerVisible: false,
-  isUserLoggedIn: false,
-  user: {},
+  user: {
+    email: "",
+    password: "",
+    isLoggedIn: false
+  },
 });
 
 beforeEach(() => {

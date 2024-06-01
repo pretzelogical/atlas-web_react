@@ -17,11 +17,17 @@ export default function uiReducer(state = initialState, action) {
     case UI_ACTION_TYPES.HIDE_NOTIFICATION_DRAWER:
       return state.set('isNotificationDrawerVisible', false);
     case UI_ACTION_TYPES.LOGIN_SUCCESS:
-      return state.set('isUserLoggedIn', true);
+      return state.setIn(['user', 'isLoggedIn'], true);
     case UI_ACTION_TYPES.LOGIN_FAILURE:
-      return state.set('isUserLoggedIn', false);
+      return state.setIn(['user', 'isLoggedIn'], false);
+    case UI_ACTION_TYPES.LOGIN:
+      let loggedInState = state.setIn(['user', 'email'], action.user.email);
+      loggedInState = loggedInState.setIn(['user', 'password'], action.user.password);
+      return loggedInState;
     case UI_ACTION_TYPES.LOGOUT:
-      return state.set('isUserLoggedIn', false);
+      let loggedOutState = state.setIn(['user', 'email'], '');
+      loggedOutState = loggedOutState.setIn(['user', 'password'], '');
+      return loggedOutState.setIn(['user', 'isLoggedIn'], false);
     default:
       return state;
   }

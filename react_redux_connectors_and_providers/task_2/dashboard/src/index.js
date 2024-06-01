@@ -2,20 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App/App.js';
 import './index.css';
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { fromJS } from 'immutable';
 import uiReducer from './reducers/uiReducer.js';
 import { Provider } from "react-redux";
+import { thunk } from 'redux-thunk';
 
 const store = createStore(uiReducer, fromJS({
   isNotificationDrawerVisible: false,
-  isUserLoggedIn: false,
-  user: {},
-}));
+  user: {
+    email: "",
+    password: "",
+    isLoggedIn: false
+  },
+}), applyMiddleware(thunk));
+export { store };
 
 store.subscribe(() => console.log(store.getState().toJS()));
 
-export { store };
 const root = document.getElementById('root');
 
 function Root() {
@@ -28,5 +32,4 @@ function Root() {
   )
 }
 
-console.log(root);
 ReactDOM.render(<Root />, root);

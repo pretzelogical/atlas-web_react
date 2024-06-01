@@ -12,10 +12,8 @@ const store = createStore(uiReducer, fromJS({
   isUserLoggedIn: false,
   user: {},
 }));
-
-store.subscribe(() => console.log(store.getState().toJS()));
-
 export { store };
+
 const root = document.getElementById('root');
 
 function Root() {

@@ -11,7 +11,7 @@ import AppContext from "./AppContext.js";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom.js";
 import BodySection from "../BodySection/BodySection.js";
 import { StyleSheet, css } from "aphrodite";
-import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActionCreators.js";
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from "../actions/uiActionCreators.js";
 
 const listCourses = [
   {
@@ -80,24 +80,6 @@ class App extends React.Component {
     };
   }
 
-  logIn = (email, password) => {
-    this.setState({
-      user: {
-        email,
-        password,
-      },
-    });
-  };
-
-  logOut = () => {
-    this.setState({
-      user: {
-        email: "",
-        password: "",
-      },
-    });
-  };
-
   markNotificationAsRead = (id) => {
     this.setState({
       listNotifications: this.state.listNotifications.filter(
@@ -121,12 +103,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppContext.Provider
-        value={{
-          user: this.state.user,
-          logOut: this.logOut,
-        }}
-      >
+      <>
         <div className={css(appStyle.appHeader)}>
           <Header />
           <Notifications
@@ -142,10 +119,10 @@ class App extends React.Component {
           <main>
             <p>{this.state.displayDrawer}</p>
             <BodySectionWithMarginBottom>
-              {this.props.user.isLoggedIn ? (
+              {this.props.user.get('isLoggedIn') ? (
                 <CourseList listCourses={listCourses} />
               ) : (
-                <Login logIn={this.logIn} />
+                <Login logIn={this.props.loginRequest} />
               )}
             </BodySectionWithMarginBottom>
             <BodySection>
@@ -160,15 +137,13 @@ class App extends React.Component {
         <div className="App-footer">
           <Footer />
         </div>
-      </AppContext.Provider>
+      </>
     );
   }
 }
 
 App.propTypes = {
-  user: PropTypes.shape({
-    isLoggedIn: PropTypes.bool,
-  }),
+  user: PropTypes.instanceOf(ImmutableMap),
   displayDrawer: PropTypes.bool,
 };
 
@@ -178,15 +153,15 @@ App.propTypes = {
  * @returns {Object}
  */
 export const mapStateToProps = (state) => ({
-  user: {
-    isLoggedIn: state.get('isUserLoggedIn')
-  },
+  user: state.get('user'),
   displayDrawer: state.get('isNotificationDrawerVisible'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
   displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
+  loginRequest: (email, password) => dispatch(loginRequest(email, password)),
+  logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import HolbertonLogo from "../assets/holberton_logo.jpg";
 import { StyleSheet, css } from "aphrodite";
-import AppContext from "../App/AppContext.js";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../actions/uiActionCreators.js";
 
 const headerStyles = StyleSheet.create({
   header: {
@@ -22,7 +23,10 @@ const headerStyles = StyleSheet.create({
 });
 
 export default function Header() {
-  const { user, logOut } = useContext(AppContext);
+  const email = useSelector((state) => state.getIn(['user', 'email']));
+  const isLoggedIn = useSelector((state) => state.getIn(['user', 'isLoggedIn']));
+  const dispatch = useDispatch();
+
   return (
     <header className={css(headerStyles.header)}>
       <img
@@ -33,14 +37,14 @@ export default function Header() {
       ></img>
       <div>
         <h1 className={css(headerStyles.h1)}>School Dashboard</h1>
-        {user.isLoggedIn ? (
+        {isLoggedIn ? (
           <section
             className={css(headerStyles.logoutSection)}
             id="logoutSection"
           >
             <p>
-              Welcome {user.email}{" "}
-              <a className={css(headerStyles.logOut)} onClick={logOut}>
+              Welcome {email}{" "}
+              <a className={css(headerStyles.logOut)} onClick={() => dispatch(logout())}>
                 (logout)
               </a>
             </p>
