@@ -1,6 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
   entry: {
@@ -41,7 +42,11 @@ module.exports = {
       patterns: [
         { from: 'src/dist', to: './static'}
       ]
-    })
+    }),
+    new CircularDependencyPlugin({
+      exclude: /a\.js|node_modules/,
+      failOnError: true,
+    }),
   ],
   optimization: {
     splitChunks: {

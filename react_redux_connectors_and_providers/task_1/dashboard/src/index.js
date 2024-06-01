@@ -7,11 +7,15 @@ import { fromJS } from 'immutable';
 import uiReducer from './reducers/uiReducer.js';
 import { Provider } from "react-redux";
 
-export const store = createStore(uiReducer, fromJS({
+const store = createStore(uiReducer, fromJS({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: {},
 }));
+
+store.subscribe(() => console.log(store.getState().toJS()));
+
+export { store };
 const root = document.getElementById('root');
 
 function Root() {

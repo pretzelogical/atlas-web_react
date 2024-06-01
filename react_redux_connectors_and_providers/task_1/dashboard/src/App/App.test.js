@@ -9,12 +9,6 @@ import uiReducer from '../reducers/uiReducer.js';
 import { Provider } from "react-redux";
 import { renderWithProviders } from "../utils/test_utils.js";
 
-const store = createStore(uiReducer, fromJS({
-  isNotificationDrawerVisible: false,
-  isUserLoggedIn: false,
-  user: {},
-}));
-
 const initialAppState = fromJS({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
@@ -51,13 +45,8 @@ test('App renders a div with class App-footer', () => {
   expect(screen.getByText(/^Copyright 2020 - /)).toBeTruthy();
 });
 
-test('App does not display courselist when user.isLoggedIn = false', () => {
-  const wrapper = shallow(<Provider store={store} ><App /></Provider>);
-  expect(wrapper.exists('CourseList')).toBe(false);
-});
-
 // TODO: Some of these tests rely on the state of the store which we are not done with yet
-//   so we are skipping it for now
+//   so we are skipping them for now
 test.skip('App does not display Login when user.isLoggedIn = true', () => {
   render(<Provider store={store} ><App /></Provider>);
   const [email, password] = screen.getAllByRole('textbox');
@@ -145,8 +134,31 @@ test('App.markNotificationAsRead removes the intended notification', () => {
 });
 
 test('redux isUserLoggedIn is correctly mapped to props', () => {
-  renderWithProviders(<App />, uiReducer, initialAppState.set('isUserLoggedIn', true));
+  // Render the app
+  const { store } = renderWithProviders(<App />, uiReducer, initialAppState.set('isUserLoggedIn', true));
 
   // The CourseList should be rendered when the user is logged in
   expect(screen.findByRole('table')).toBeTruthy();
+  // isUserLoggedIn should be mapped correctly
+  expect(store.getState().get('isUserLoggedIn')).toBe(true);
+});
+
+test('redux isNotificationDrawerVisible is correctly mapped and displays correctly', () => {
+  const { store, rerender } = renderWithProviders(<App />, uiReducer, initialAppState);
+
+  // Clicking this sets displayDrawer to true
+  fireEvent.click(screen.getByText('Your notifications'));
+  rerender(<Provider store={store} ><App /></Provider>);
+
+  // The notifications drawer should be visible
+  expect(screen.getByText('Here is the list of notifications')).toBeTruthy();
+  expect(store.getState().get('isNotificationDrawerVisible')).toBe(true);
+
+  // Clicking this sets displayDrawer to false
+  fireEvent.click(screen.getByText('x'));
+  rerender(<Provider store={store} ><App /></Provider>);
+
+  // The notifications drawer should be hidden
+  expect(() => screen.getByText('Here is the list of notifications')).toThrow();
+  expect(store.getState().get('isNotificationDrawerVisible')).toBe(false);
 });

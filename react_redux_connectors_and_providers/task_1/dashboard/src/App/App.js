@@ -11,6 +11,7 @@ import AppContext from "./AppContext.js";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom.js";
 import BodySection from "../BodySection/BodySection.js";
 import { StyleSheet, css } from "aphrodite";
+import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActionCreators.js";
 
 const listCourses = [
   {
@@ -64,6 +65,7 @@ const appStyle = StyleSheet.create({
 class App extends React.Component {
   static defaultProps = {
     isLoggedIn: false,
+    displayDrawer: false,
   }
 
   constructor(props) {
@@ -72,32 +74,17 @@ class App extends React.Component {
       user: {
         email: "",
         password: "",
-        isLoggedIn: props.user.isLoggedIn
       },
       logOut: () => void 0,
-      displayDrawer: false,
       listNotifications: Array.from(defaultListNotifications),
     };
   }
-
-  handleDisplayDrawer = () => {
-    this.setState({
-      displayDrawer: true,
-    });
-  };
-
-  handleHideDrawer = () => {
-    this.setState({
-      displayDrawer: false,
-    });
-  };
 
   logIn = (email, password) => {
     this.setState({
       user: {
         email,
         password,
-        isLoggedIn: true,
       },
     });
   };
@@ -107,7 +94,6 @@ class App extends React.Component {
       user: {
         email: "",
         password: "",
-        isLoggedIn: false,
       },
     });
   };
@@ -145,9 +131,9 @@ class App extends React.Component {
           <Header />
           <Notifications
             listNotifications={this.state.listNotifications}
-            displayDrawer={this.state.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            displayDrawer={this.props.displayDrawer}
+            handleDisplayDrawer={this.props.displayNotificationDrawer}
+            handleHideDrawer={this.props.hideNotificationDrawer}
             markAsRead={this.markNotificationAsRead}
             key={this.state.listNotifications.length}
           />
@@ -156,7 +142,7 @@ class App extends React.Component {
           <main>
             <p>{this.state.displayDrawer}</p>
             <BodySectionWithMarginBottom>
-              {this.state.user.isLoggedIn ? (
+              {this.props.user.isLoggedIn ? (
                 <CourseList listCourses={listCourses} />
               ) : (
                 <Login logIn={this.logIn} />
@@ -183,6 +169,7 @@ App.propTypes = {
   user: PropTypes.shape({
     isLoggedIn: PropTypes.bool,
   }),
+  displayDrawer: PropTypes.bool,
 };
 
 /**
@@ -193,7 +180,13 @@ App.propTypes = {
 export const mapStateToProps = (state) => ({
   user: {
     isLoggedIn: state.get('isUserLoggedIn')
-  }
+  },
+  displayDrawer: state.get('isNotificationDrawerVisible'),
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
+  displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
