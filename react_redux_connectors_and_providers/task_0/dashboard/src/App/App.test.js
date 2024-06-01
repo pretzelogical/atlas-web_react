@@ -4,15 +4,22 @@ import { shallow, jest } from "../../config/setupTests.mjs";
 import { render, fireEvent, screen } from '@testing-library/react';
 import { StyleSheetTestUtils } from "aphrodite";
 import { createStore } from "redux";
-import { Map as ImmutableMap } from 'immutable';
+import { fromJS } from 'immutable';
 import uiReducer from '../reducers/uiReducer.js';
 import { Provider } from "react-redux";
+import { renderWithProviders } from "../utils/test_utils.js";
 
-const store = createStore(uiReducer, ImmutableMap({
+const store = createStore(uiReducer, fromJS({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: {},
 }));
+
+const initialAppState = fromJS({
+  isNotificationDrawerVisible: false,
+  isUserLoggedIn: false,
+  user: {},
+});
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -25,22 +32,22 @@ afterEach(() => {
 jest.spyOn(window, 'alert').mockImplementation(() => {});
 
 test('App renders', () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);
 });
 
 
 test('App renders with component Header', () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);;
   expect(screen.getByRole('heading', { name: 'School Dashboard'})).toBeTruthy();
 });
 
 test('App renders with component BodySection', () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);
   expect(screen.getByText('News from the School')).toBeTruthy();
 });
 
 test('App renders a div with class App-footer', () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);
   expect(screen.getByText(/^Copyright 2020 - /)).toBeTruthy();
 });
 
@@ -60,15 +67,6 @@ test.skip('App does not display Login when user.isLoggedIn = true', () => {
   screen.click(screen.getByText('OK'));
 
   expect(wrapper.exists('Login')).toBe(false);
-});
-
-test.skip('App displays CourseList when isLoggedIn = true', () => {
-  const wrapper = shallow(<Provider store={store} ><App /></Provider>);
-  const instance = wrapper.instance();
-
-  instance.logIn('fakemail', '0xdeadbeef')
-
-  expect(wrapper.exists('CourseList')).toBe(true);
 });
 
 test.skip('App logs out after crtl+h is pressed', async () => {
@@ -94,12 +92,12 @@ test.skip('App logs out after crtl+h is pressed', async () => {
 });
 
 test('Apps default displayDrawer state is false', async () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);
   expect(() => screen.getByText('Here is the list of notifications')).toThrow();
 });
 
 test('Apps changes displayDrawer state to true when calling handleDisplayDrawer', () => {
-  render(<Provider store={store} ><App /></Provider>);
+  renderWithProviders(<App />, uiReducer, initialAppState);
 
   // Clicking this sets displayDrawer to true
   fireEvent.click(screen.getByText('Your notifications'));
@@ -129,8 +127,8 @@ test.skip('App.logOut updates the state correctly', () => {
 });
 
 test('App.markNotificationAsRead removes the intended notification', () => {
-  render(<Provider store={store} ><App /></Provider>);
-  
+  renderWithProviders(<App />, uiReducer, initialAppState);
+
   // Clicking this sets displayDrawer to true
   fireEvent.click(screen.getByText('Your notifications'));
   expect(screen.getByText('Here is the list of notifications')).toBeTruthy();
@@ -144,4 +142,11 @@ test('App.markNotificationAsRead removes the intended notification', () => {
 
   // The first notification should be removed
   expect(() => screen.getByText(firstNotifText)).toThrow();
+});
+
+test('redux isUserLoggedIn is correctly mapped to props', () => {
+  renderWithProviders(<App />, uiReducer, initialAppState.set('isUserLoggedIn', true));
+
+  // The CourseList should be rendered when the user is logged in
+  expect(screen.findByRole('table')).toBeTruthy();
 });

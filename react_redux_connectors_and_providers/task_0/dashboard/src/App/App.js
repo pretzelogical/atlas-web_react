@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Footer from "../Footer/Footer.js";
 import Header from "../Header/Header.js";
 import Login from "../Login/Login.js";
+import { Map as ImmutableMap } from "immutable";
 import CourseList from "../CourseList/CourseList.js";
 import AppContext from "./AppContext.js";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom.js";
@@ -172,9 +173,15 @@ class App extends React.Component {
     );
   }
 }
-
+/**
+ * Maps the state to props
+ * @param {ImmutableMap} state
+ * @returns {Object}
+ */
 export const mapStateToProps = (state) => ({
-  user: { ...state.user, isLoggedIn: state.isUserLoggedIn },
+  user: {
+    isLoggedIn: state.get('isUserLoggedIn')
+  }
 });
 
 export default connect(mapStateToProps)(App);
