@@ -90,9 +90,12 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener("keydown", (e) => {
+      if (!this.props.user.get('isLoggedIn')) {
+        return;
+      }
       if (e.ctrlKey && e.key === "h") {
         alert("Logging you out");
-        this.logOut();
+        this.props.logout();
       }
     });
   }

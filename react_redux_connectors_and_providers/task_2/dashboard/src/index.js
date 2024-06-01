@@ -18,8 +18,6 @@ const store = createStore(uiReducer, fromJS({
 }), applyMiddleware(thunk));
 export { store };
 
-store.subscribe(() => console.log(store.getState().toJS()));
-
 const root = document.getElementById('root');
 
 function Root() {

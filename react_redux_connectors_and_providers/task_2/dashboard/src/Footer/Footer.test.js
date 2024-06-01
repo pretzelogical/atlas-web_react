@@ -3,35 +3,26 @@ import { shallow } from "../../config/setupTests.mjs";
 import { render, screen } from "@testing-library/react";
 import AppContext from "../App/AppContext.js";
 import Footer from "./Footer.js";
+import { Provider } from "react-redux";
+import { renderWithProviders, initialAppState } from "../utils/test_utils.js";
 
 test("Footer renders", () => {
-  const wrapper = shallow(<Footer />);
-  expect(wrapper.exists()).toBe(true);
+  renderWithProviders(<Footer />);
 });
 
 test('Footer at the very least renders the text "Copyright"', () => {
-  const wrapper = shallow(<Footer />);
-  expect(wrapper.html().toLowerCase().includes("copyright")).toBe(true);
+  renderWithProviders(<Footer />);
+  expect(screen.getByText(/^Copyright 2020 - /)).toBeTruthy();
 });
 
 test("Footer does not display contact link when the user is logged out", () => {
-  render(<Footer />);
+  renderWithProviders(<Footer />);
 
   expect(() => screen.getByText("Contact us")).toThrow();
 });
 
 test("Footer does display contact link when the user is logged in", () => {
-  render(
-    <AppContext.Provider value={{
-      user: {
-        email: 'email',
-        password: '_',
-        isLoggedIn: true
-      }
-    }}>
-      <Footer />
-    </AppContext.Provider>
-  );
+  renderWithProviders(<Footer />, initialAppState.setIn(['user', 'isLoggedIn'], true));
 
   expect(screen.getByText("Contact us")).toBeTruthy();
 });

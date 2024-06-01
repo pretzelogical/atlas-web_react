@@ -1,10 +1,8 @@
 import React from "react";
-import { shallow, jest } from "../../config/setupTests.mjs";
 import Header from "./Header.js";
 import { StyleSheetTestUtils } from "aphrodite";
-import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App/App.js";
-import AppContext from "../App/AppContext.js";
+import { screen, fireEvent } from "@testing-library/react";
+import { renderWithProviders, initialAppState } from "../utils/test_utils.js";
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -14,63 +12,42 @@ afterEach(() => {
   StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
+const loggedInState = initialAppState
+  .setIn(['user', 'isLoggedIn'], true)
+  .setIn(['user', 'email'], "joemail");
+
 test("Header renders", () => {
-  const wrapper = shallow(<Header />);
-  expect(wrapper.exists()).toBe(true);
+  renderWithProviders(<Header />);
 });
 
-test("Header renders img and h1 tags", () => {
-  const wrapper = shallow(<Header />);
-  expect(wrapper.children().find("img").exists()).toBe(true);
-  expect(wrapper.children().find("h1").exists()).toBe(true);
+test("Header renders img and h1", () => {
+  renderWithProviders(<Header />);
+  console.log(screen.getByRole('img').localName);
+  expect(screen.getByRole('img').localName).toEqual('img');
+  expect(screen.getByRole('heading').localName).toEqual('h1');
 });
 
-test("Header does not render logout section with default context value", () => {
-  render(<Header />);
+test("Header does not render logout section when not logged in", () => {
+  // Default is not logged in
+  renderWithProviders(<Header />);
 
   // Logout text is not rendered
   expect(() => screen.getByText("(logout)")).toThrow();
 });
 
-test("Header does render logout section with user.email set and user.isLoggedIn = true in the context", () => {
-  render(
-    <AppContext.Provider
-      value={{
-        user: {
-          email: "test",
-          password: "",
-          isLoggedIn: true,
-        },
-      }}
-    >
-      <Header />
-    </AppContext.Provider>
-  );
+test("Header does render logout section with user.email set and user.isLoggedIn = true in the state", () => {
+  renderWithProviders(<Header />, loggedInState);
 
   // Logout text is rendered
   expect(screen.getByText("(logout)")).toBeTruthy();
 });
 
 
-test("Header does render logout section with user.email set and user.isLoggedIn = true in the context", () => {
-  const logOutMock = jest.fn();
-  render(
-    <AppContext.Provider
-      value={{
-        user: {
-          email: "test",
-          password: "",
-          isLoggedIn: true,
-        },
-        logOut: logOutMock
-      }}
-    >
-      <Header />
-    </AppContext.Provider>
-  );
-  const logOutButton = screen.getByText("(logout)");
+test("Clicking the logout button logs out the user", () => {
+  const { rerenderWithStore } = renderWithProviders(<Header />, loggedInState);
 
-  fireEvent.click(logOutButton);
+  fireEvent.click(screen.getByText("(logout)"));
+  rerenderWithStore(<Header />);
 
-  expect(logOutMock).toHaveBeenCalled();
+  expect(() => screen.getByText("(logout)")).toThrow();
 });

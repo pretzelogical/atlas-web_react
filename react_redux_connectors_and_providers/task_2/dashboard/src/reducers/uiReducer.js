@@ -21,13 +21,14 @@ export default function uiReducer(state = initialState, action) {
     case UI_ACTION_TYPES.LOGIN_FAILURE:
       return state.setIn(['user', 'isLoggedIn'], false);
     case UI_ACTION_TYPES.LOGIN:
-      let loggedInState = state.setIn(['user', 'email'], action.user.email);
-      loggedInState = loggedInState.setIn(['user', 'password'], action.user.password);
-      return loggedInState;
+      return state
+        .setIn(['user', 'email'], action.user.email)
+        .setIn(['user', 'password'], action.user.password);
     case UI_ACTION_TYPES.LOGOUT:
-      let loggedOutState = state.setIn(['user', 'email'], '');
-      loggedOutState = loggedOutState.setIn(['user', 'password'], '');
-      return loggedOutState.setIn(['user', 'isLoggedIn'], false);
+      return state
+        .setIn(['user', 'isLoggedIn'], false)
+        .setIn(['user', 'email'], '')
+        .setIn(['user', 'password'], '');
     default:
       return state;
   }
