@@ -22,7 +22,9 @@ test("Footer does not display contact link when the user is logged out", () => {
 });
 
 test("Footer does display contact link when the user is logged in", () => {
-  renderWithProviders(<Footer />, initialAppState.setIn(['user', 'isLoggedIn'], true));
+  const appState = { ...initialAppState };
+  appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);
+  renderWithProviders(<Footer />, appState);
 
   expect(screen.getByText("Contact us")).toBeTruthy();
 });

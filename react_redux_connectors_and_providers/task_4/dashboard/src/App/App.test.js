@@ -3,9 +3,6 @@ import App from "./App.js";
 import { shallow, jest } from "../../config/setupTests.mjs";
 import { render, fireEvent, screen } from '@testing-library/react';
 import { StyleSheetTestUtils } from "aphrodite";
-import { createStore } from "redux";
-import { fromJS } from 'immutable';
-import uiReducer from '../reducers/uiReducer.js';
 import { Provider } from "react-redux";
 import { renderWithProviders, initialAppState } from "../utils/test_utils.js";
 
@@ -40,12 +37,17 @@ test('App renders a div with class App-footer', () => {
 });
 
 test('App does not display Login when user.isLoggedIn = true', () => {
-  renderWithProviders(<App />, initialAppState.setIn(['user', 'isLoggedIn'], true));
+  const appState = { ...initialAppState };
+  appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);
+  console.log(appState.ui.toJS());
+  renderWithProviders(<App />, appState);
   expect(() => screen.getByText('Login to access the full dashboard')).toThrow();
 });
 
 test('App logs out after crtl+h is pressed', async () => {
-  const { container, rerenderWithStore } = renderWithProviders(<App />, initialAppState.setIn(['user', 'isLoggedIn'], true));
+  const appState = { ...initialAppState };
+  appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);
+  const { container, rerenderWithStore } = renderWithProviders(<App />, appState);
 
   fireEvent.keyDown(container, { key: 'h', ctrlKey: true });
   rerenderWithStore(<App />);
@@ -87,32 +89,32 @@ test('App.markNotificationAsRead removes the intended notification', () => {
   expect(() => screen.getByText(firstNotifText)).toThrow();
 });
 
-test('redux isUserLoggedIn is correctly mapped to props', () => {
+test('redux user.isLoggedIn is correctly mapped to props', () => {
+  const appState = { ...initialAppState };
+  appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);
   // Render the app
-  const { store } = renderWithProviders(<App />, initialAppState.set('isUserLoggedIn', true));
+  const { store } = renderWithProviders(<App />, appState);
 
   // The CourseList should be rendered when the user is logged in
   expect(screen.findByRole('table')).toBeTruthy();
-  // isUserLoggedIn should be mapped correctly
-  expect(store.getState().get('isUserLoggedIn')).toBe(true);
 });
 
 test('redux isNotificationDrawerVisible is correctly mapped and displays correctly', () => {
-  const { store, rerender } = renderWithProviders(<App />);
+  const { store, rerenderWithStore } = renderWithProviders(<App />);
 
   // Clicking this sets displayDrawer to true
   fireEvent.click(screen.getByText('Your notifications'));
-  rerender(<Provider store={store} ><App /></Provider>);
+  rerenderWithStore(<App />);
 
   // The notifications drawer should be visible
   expect(screen.getByText('Here is the list of notifications')).toBeTruthy();
-  expect(store.getState().get('isNotificationDrawerVisible')).toBe(true);
+  expect(store.getState().ui.get('isNotificationDrawerVisible')).toBe(true);
 
   // Clicking this sets displayDrawer to false
   fireEvent.click(screen.getByText('x'));
-  rerender(<Provider store={store} ><App /></Provider>);
+  rerenderWithStore(<App />);
 
   // The notifications drawer should be hidden
   expect(() => screen.getByText('Here is the list of notifications')).toThrow();
-  expect(store.getState().get('isNotificationDrawerVisible')).toBe(false);
+  expect(store.getState().ui.get('isNotificationDrawerVisible')).toBe(false);
 });

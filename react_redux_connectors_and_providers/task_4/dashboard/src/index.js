@@ -3,22 +3,24 @@ import ReactDOM from 'react-dom';
 import App from './App/App.js';
 import './index.css';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { fromJS } from 'immutable';
-import uiReducer from './reducers/uiReducer.js';
+import { Map as ImmutableMap } from 'immutable';
+import rootReducer from './reducers/rootReducer.js';
 import { Provider } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
+const reduxDevTools =
+  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) ||
+  (() => (noop) => noop);
+
 const store = createStore(
-  uiReducer,
-  fromJS({
-    isNotificationDrawerVisible: false,
-    user: {
-      email: '',
-      password: '',
-      isLoggedIn: false,
-    },
-  }),
-  compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
+  rootReducer,
+  undefined,
+  // {
+  //   courses: ImmutableMap(),
+  //   notifications: ImmutableMap(),
+  //   ui: ImmutableMap()
+  // },
+  compose(applyMiddleware(thunk), reduxDevTools()),
 );
 export { store };
 

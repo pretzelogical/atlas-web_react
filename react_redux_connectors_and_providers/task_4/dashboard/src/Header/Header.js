@@ -23,8 +23,8 @@ const headerStyles = StyleSheet.create({
 });
 
 export default function Header() {
-  const email = useSelector((state) => state.getIn(['user', 'email']));
-  const isLoggedIn = useSelector((state) => state.getIn(['user', 'isLoggedIn']));
+  const email = useSelector((state) => state.ui.getIn(['user', 'email']));
+  const isLoggedIn = useSelector((state) => state.ui.getIn(['user', 'isLoggedIn']));
   const dispatch = useDispatch();
 
   return (

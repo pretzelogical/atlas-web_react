@@ -1,10 +1,13 @@
 import * as UI_ACTION_TYPES from '../actions/uiActionTypes.js';
-import { Map as ImmutableMap } from 'immutable';
+import { fromJS } from 'immutable';
 
-const initialState = ImmutableMap({
+const initialState = fromJS({
   isNotificationDrawerVisible: false,
-  isUserLoggedIn: false,
-  user: {},
+  user: {
+    email: '',
+    password: '',
+    isLoggedIn: false
+  },
 });
 
 export default function uiReducer(state = initialState, action) {

@@ -12,9 +12,11 @@ afterEach(() => {
   StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-const loggedInState = initialAppState
-  .setIn(['user', 'isLoggedIn'], true)
-  .setIn(['user', 'email'], "joemail");
+const loggedInState = (() => {
+  const appState = { ...initialAppState };
+  appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);
+  return appState;
+})();
 
 test("Header renders", () => {
   renderWithProviders(<Header />);
@@ -22,7 +24,6 @@ test("Header renders", () => {
 
 test("Header renders img and h1", () => {
   renderWithProviders(<Header />);
-  console.log(screen.getByRole('img').localName);
   expect(screen.getByRole('img').localName).toEqual('img');
   expect(screen.getByRole('heading').localName).toEqual('h1');
 });

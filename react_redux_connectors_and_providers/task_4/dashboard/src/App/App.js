@@ -156,8 +156,8 @@ App.propTypes = {
  * @returns {Object}
  */
 export const mapStateToProps = (state) => ({
-  user: state.get('user'),
-  displayDrawer: state.get('isNotificationDrawerVisible'),
+  user: state.ui.get('user'),
+  displayDrawer: state.ui.get('isNotificationDrawerVisible'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

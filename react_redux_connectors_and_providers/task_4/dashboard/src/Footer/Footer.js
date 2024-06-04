@@ -5,7 +5,7 @@ import './Footer.css';
 
 
 export default function Footer() {
-  const isLoggedIn = useSelector((state) => state.getIn(['user', 'isLoggedIn']));
+  const isLoggedIn = useSelector((state) => state.ui.getIn(['user', 'isLoggedIn']));
 
   return (
     <footer>
