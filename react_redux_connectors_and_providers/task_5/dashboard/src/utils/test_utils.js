@@ -4,10 +4,12 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { fromJS } from 'immutable';
 import rootReducer from '../reducers/rootReducer.js';
+import { applyMiddleware } from 'redux';
+import { thunk } from 'redux-thunk';
 
 export const initialAppState = {
   courses: fromJS([]),
-  notifications: fromJS([]),
+  notifications: fromJS({}),
   ui: fromJS({
     isNotificationDrawerVisible: false,
     user: {
@@ -28,7 +30,7 @@ export const initialAppState = {
  * @return {Object} An object containing the Redux store and all of RTL's query functions.
  */
 export function renderWithProviders(ui, initialState = undefined, reducer = rootReducer, renderOptions = {}) {
-  const store = createStore(reducer, initialState);
+  const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
   const Wrapper = ({ children }) => (
     <Provider store={store}>{children}</Provider>

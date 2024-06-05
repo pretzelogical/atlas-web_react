@@ -103,7 +103,6 @@ class Notifications extends React.Component {
 
   componentDidMount() {
     this.props.fetchNotifications();
-    console.log(this.props.listNotifications);
   }
 
   constructor(props) {
@@ -111,6 +110,7 @@ class Notifications extends React.Component {
   }
 
   render() {
+    console.log(this.props.listNotifications);
     return (
       <div className={css(notificationsStyles.notificationsDisplay)}>
         {this.props.displayDrawer ? null : (

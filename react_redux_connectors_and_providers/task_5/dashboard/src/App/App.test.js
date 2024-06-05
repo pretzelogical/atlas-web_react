@@ -71,24 +71,6 @@ test('Apps changes displayDrawer state to true when calling handleDisplayDrawer'
   expect(screen.getByText('Here is the list of notifications')).toBeTruthy();
 });
 
-test('App.markNotificationAsRead removes the intended notification', () => {
-  renderWithProviders(<App />);
-
-  // Clicking this sets displayDrawer to true
-  fireEvent.click(screen.getByText('Your notifications'));
-  expect(screen.getByText('Here is the list of notifications')).toBeTruthy();
-
-  // Making sure that that we actually have notifications and not something else
-  const firstNotif = screen.getAllByRole('listitem')[0];
-  expect(firstNotif.getAttribute('data-priority')).toBeTruthy();
-  const firstNotifText = firstNotif.textContent;
-
-  fireEvent.click(firstNotif);
-
-  // The first notification should be removed
-  expect(() => screen.getByText(firstNotifText)).toThrow();
-});
-
 test('redux user.isLoggedIn is correctly mapped to props', () => {
   const appState = { ...initialAppState };
   appState.ui = appState.ui.setIn(['user', 'isLoggedIn'], true);

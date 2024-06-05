@@ -32,7 +32,6 @@ export const fetchNotifications = () => {
       const data = await (await fetch(
         'http://localhost:8080/static/notifications.json',
       )).json();
-      console.log(data);
       dispatch(setNotifications(data));
     } catch (error) {
       console.log(error);
