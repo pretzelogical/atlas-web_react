@@ -8,6 +8,7 @@ import { applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk';
 import fs from 'fs';
 import { notificationsNormalizer } from '../schema/notifications.js';
+import courseNormalizer from '../schema/courses.js';
 
 export const initialAppState = {
   courses: fromJS([]),
@@ -26,6 +27,13 @@ export const initialNotificationState = (() => {
   let newAppState = { ...initialAppState };
   const data = JSON.parse(fs.readFileSync('./src/dist/notifications.json', 'utf8'));
   newAppState.notifications = fromJS({ notifications: notificationsNormalizer(data) });
+  return newAppState;
+})();
+
+export const initialCourseState = (() => {
+  let newAppState = { ...initialAppState };
+  const data = JSON.parse(fs.readFileSync('./src/dist/courses.json', 'utf8'));
+  newAppState.courses = fromJS(courseNormalizer(data));
   return newAppState;
 })();
 

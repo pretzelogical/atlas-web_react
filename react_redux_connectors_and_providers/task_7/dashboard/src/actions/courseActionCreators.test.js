@@ -1,6 +1,7 @@
 import * as CourseActionCreators from './courseActionCreators.js';
 import * as CourseActionTypes from './courseActionTypes.js';
 import { StyleSheetTestUtils } from "aphrodite";
+import { jest } from '../../config/setupTests.mjs';
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -22,4 +23,16 @@ test('Unselecting a course', () => {
     type: CourseActionTypes.UNSELECT_COURSE,
     index: 1
   })
+});
+
+test('fetching course', async () => {
+  const fakeDispatch = jest.fn();
+  await CourseActionCreators.fetchCourses()(fakeDispatch);
+  expect(fakeDispatch).toHaveBeenCalled();
+  expect(fakeDispatch).toHaveBeenCalledWith(
+    expect.objectContaining({
+      type: CourseActionTypes.FETCH_COURSE_SUCCESS,
+      data: expect.any(Object)
+    })
+  );
 });

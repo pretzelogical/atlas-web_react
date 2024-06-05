@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
+import PropTypes from "prop-types";
 
 const courseListRowStyle = StyleSheet.create({
   row: {
@@ -25,13 +26,13 @@ const courseListRowStyle = StyleSheet.create({
   },
 });
 
-export default function CourseListRow({
+function CourseListRow({
   isHeader = false,
   textFirstCell,
   textSecondCell = null,
+  isChecked = false,
+  onCheck = () => void 0
 }) {
-  const [isChecked, setIsChecked] = useState(false);
-
   return (
     <tr
       className={
@@ -58,7 +59,7 @@ export default function CourseListRow({
               type="checkbox"
               name={`${textFirstCell}-checkbox`}
               id={`${textFirstCell}-checkbox`}
-              onClick={() => setIsChecked(!isChecked)}
+              onClick={() => onCheck()}
             />
             {textFirstCell}
           </td>
@@ -68,3 +69,13 @@ export default function CourseListRow({
     </tr>
   );
 }
+
+CourseListRow.propTypes = {
+  isHeader: PropTypes.bool,
+  textFirstCell: PropTypes.string.isRequired,
+  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isChecked: PropTypes.bool,
+  onChangeRow: PropTypes.func
+}
+
+export default CourseListRow;
