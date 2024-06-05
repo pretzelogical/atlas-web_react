@@ -28,7 +28,6 @@ const notificationItemStyles = StyleSheet.create({
 class NotificationItem extends React.PureComponent {
   static defaultProps = {
     type: 'default',
-    markAsRead: () => void 0,
   };
 
   render() {
@@ -46,7 +45,6 @@ class NotificationItem extends React.PureComponent {
               )
         }
         data-priority={this.props.type}
-        onClick={this.props.markAsRead}
         dangerouslySetInnerHTML={this.props.html}
       ></li>
     ) : (
@@ -63,7 +61,6 @@ class NotificationItem extends React.PureComponent {
               )
         }
         data-priority={this.props.type}
-        onClick={this.props.markAsRead}
       >
         {this.props.value}
       </li>

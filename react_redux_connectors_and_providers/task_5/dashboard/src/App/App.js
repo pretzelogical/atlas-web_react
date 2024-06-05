@@ -80,14 +80,6 @@ class App extends React.Component {
     };
   }
 
-  markNotificationAsRead = (id) => {
-    this.setState({
-      listNotifications: this.state.listNotifications.filter(
-        (notif) => id !== notif.id
-      ),
-    });
-  };
-
   componentDidMount() {
     document.addEventListener("keydown", (e) => {
       if (!this.props.user.get('isLoggedIn')) {
@@ -114,7 +106,6 @@ class App extends React.Component {
             displayDrawer={this.props.displayDrawer}
             handleDisplayDrawer={this.props.displayNotificationDrawer}
             handleHideDrawer={this.props.hideNotificationDrawer}
-            markAsRead={this.markNotificationAsRead}
             key={this.state.listNotifications.length}
           />
         </div>

@@ -99,7 +99,6 @@ class Notifications extends React.Component {
     listNotifications: [],
     handleDisplayDrawer: () => void(0),
     handleHideDrawer: () => void(0),
-    markAsRead: () => void(0)
   };
 
   componentDidMount() {
@@ -150,7 +149,6 @@ class Notifications extends React.Component {
                         type={notif.get('type')}
                         html={notif.get('html')}
                         key={notif.get('guid')}
-                        markAsRead={() => this.props.markAsRead(notif.id)}
                       />
                     );
                   }
@@ -159,7 +157,6 @@ class Notifications extends React.Component {
                       type={notif.get('type')}
                       value={notif.get('value')}
                       key={notif.get('guid')}
-                      markAsRead={() => this.props.markAsRead(notif.id)}
                     />
                   );
                 })
@@ -178,7 +175,6 @@ Notifications.propTypes = {
   listNotifications: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
-  markAsRead: PropTypes.func,
   fetchNotifications: PropTypes.func
 };
 
