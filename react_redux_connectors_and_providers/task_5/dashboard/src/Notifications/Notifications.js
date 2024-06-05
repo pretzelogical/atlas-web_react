@@ -1,8 +1,9 @@
 import NotificationItem from './NotificationItem.js';
 import React from 'react';
 import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape.js';
 import { StyleSheet, css } from 'aphrodite';
+import { connect } from 'react-redux';
+import { fetchNotifications } from '../actions/notificationActionCreators.js';
 
 const translateKeyFrames = {
   '0%': {
@@ -92,7 +93,7 @@ const notificationsStyles = StyleSheet.create({
   },
 });
 
-class Notifications extends React.PureComponent {
+class Notifications extends React.Component {
   static defaultProps = {
     displayDrawer: false,
     listNotifications: [],
@@ -100,6 +101,11 @@ class Notifications extends React.PureComponent {
     handleHideDrawer: () => void(0),
     markAsRead: () => void(0)
   };
+
+  componentDidMount() {
+    this.props.fetchNotifications();
+    console.log(this.props.listNotifications);
+  }
 
   constructor(props) {
     super(props);
@@ -137,22 +143,22 @@ class Notifications extends React.PureComponent {
               {this.props.listNotifications.length === 0 ? (
                 <li>No new notification for now</li>
               ) : (
-                this.props.listNotifications.map((notif) => {
-                  if (!notif.value) {
+                this.props.listNotifications.valueSeq().map((notif) => {
+                  if (!notif.get('value')) {
                     return (
                       <NotificationItem
-                        type={notif.type}
-                        html={notif.html}
-                        key={notif.id}
+                        type={notif.get('type')}
+                        html={notif.get('html')}
+                        key={notif.get('guid')}
                         markAsRead={() => this.props.markAsRead(notif.id)}
                       />
                     );
                   }
                   return (
                     <NotificationItem
-                      type={notif.type}
-                      value={notif.value}
-                      key={notif.id}
+                      type={notif.get('type')}
+                      value={notif.get('value')}
+                      key={notif.get('guid')}
                       markAsRead={() => this.props.markAsRead(notif.id)}
                     />
                   );
@@ -168,10 +174,20 @@ class Notifications extends React.PureComponent {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(PropTypes.shape(NotificationItemShape)),
+  // NOTE: For some reason (probably the getIn function) this prop is an array on first load
+  listNotifications: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
-  markAsRead: PropTypes.func
+  markAsRead: PropTypes.func,
+  fetchNotifications: PropTypes.func
 };
 
-export default Notifications;
+const mapStateToProps = (state) => ({
+  listNotifications: state.notifications.getIn(['notifications', 'entities', 'messages'])
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchNotifications: () => dispatch(fetchNotifications())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

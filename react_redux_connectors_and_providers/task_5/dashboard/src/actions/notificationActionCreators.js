@@ -1,24 +1,43 @@
-import * as NotificationActionTypes from "./notificationActionTypes.js";
-import { bindActionCreators } from "redux";
-import { store } from "../index.js";
+import * as NOTIFICATION_ACTION_TYPES from './notificationActionTypes.js';
 
 export const markAsRead = (index) => ({
-  type: NotificationActionTypes.MARK_AS_READ,
+  type: NOTIFICATION_ACTION_TYPES.MARK_AS_READ,
   index,
 });
 
 export const setNotificationFilter = (filter) => ({
-  type: NotificationActionTypes.SET_TYPE_FILTER,
+  type: NOTIFICATION_ACTION_TYPES.SET_TYPE_FILTER,
   filter,
 });
 
 export const fetchNotificationsSuccess = (data) => ({
-  type: NotificationActionTypes.FETCH_NOTIFICATIONS_SUCCESS,
+  type: NOTIFICATION_ACTION_TYPES.FETCH_NOTIFICATIONS_SUCCESS,
   data,
 });
 
-export const boundMarkAsRead = bindActionCreators(markAsRead, store.dispatch);
-export const boundSetNotificationsFilter = bindActionCreators(
-  setNotificationFilter,
-  store.dispatch
-);
+export const setLoadingState = (state) => ({
+  type: NOTIFICATION_ACTION_TYPES.SET_LOADING_STATE,
+  state,
+});
+
+export const setNotifications = (data = []) => ({
+  type: NOTIFICATION_ACTION_TYPES.FETCH_NOTIFICATIONS_SUCCESS,
+  data,
+});
+
+export const fetchNotifications = () => {
+  return async (dispatch) => {
+    dispatch(setLoadingState(true));
+    try {
+      const data = await (await fetch(
+        'http://localhost:8080/static/notifications.json',
+      )).json();
+      console.log(data);
+      dispatch(setNotifications(data));
+    } catch (error) {
+      console.log(error);
+    }
+    dispatch(setLoadingState(false));
+  };
+};
+

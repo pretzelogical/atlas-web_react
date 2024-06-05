@@ -1,5 +1,4 @@
 import * as ACTION_TYPES from './uiActionTypes.js';
-import { bindActionCreators } from 'redux';
 
 export const login = (email, password) => {
   return {

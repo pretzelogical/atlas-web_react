@@ -50,6 +50,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@redux-devtools/extension": "^3.3.0",
     "aphrodite": "^2.4.0",
     "copy-webpack-plugin": "^12.0.2",
     "immutable": "^4.3.6",

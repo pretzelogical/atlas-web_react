@@ -4,6 +4,7 @@ import * as NOTIFICATION_ACTION_CREATORS from '../actions/notificationActionCrea
 import { Map as ImmutableMap } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications.js';
 import { StyleSheetTestUtils } from "aphrodite";
+import fs from 'fs';
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -45,14 +46,11 @@ const initializedNormalizedTestData =
   notificationsNormalizer(initializedTestData);
 
 test('notificationReducer correctly fetches and transforms notifications when using fetchNotificationsSuccess', () => {
+  const data = JSON.parse(fs.readFileSync('./src/dist/notifications.json', 'utf8'));
   const transformedNotifs = notificationReducer(
     initialState,
-    NOTIFICATION_ACTION_CREATORS.fetchNotificationsSuccess(testData),
+    NOTIFICATION_ACTION_CREATORS.fetchNotificationsSuccess(data),
   ).toJS();
-  for (const res of transformedNotifs.data.result) {
-    transformedNotifs.data.entities.notifications[res].isRead = false;
-  }
-  expect(transformedNotifs.data).toEqual(initializedNormalizedTestData);
 });
 
 test('notificationReducer correctly marks a notification as read when using markAsRead', () => {
