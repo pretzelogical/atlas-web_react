@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import Login from "../Login/Login.js";
 import { Map as ImmutableMap } from "immutable";
 import CourseList from "../CourseList/CourseList.js";
-import AppContext from "./AppContext.js";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom.js";
 import BodySection from "../BodySection/BodySection.js";
 import { StyleSheet, css } from "aphrodite";
